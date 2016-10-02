@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Website</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+    <link href="css/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+<div class="container-fluid">
+    <div class="no-padding-left pull-left">
+        <a class="navbar-brand navbar-link" href="page-list.html">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+    </div>
+
+    <div class="nav-sidebar no-padding-left col-sm-4 col-md-3">
+        <div class="navbar-header pull-left">
+            <a class="navbar-brand" href="#">
+                Pages
+            </a>
+        </div>
+        <p class="navbar-text pull-right">
+            <a class="navbar-link" href="page-new.html">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </p>
+    </div>
+
+    <div class="col-sm-6 col-md-7 no-padding-left">
+        <div class="navbar-header pull-left">
+            <a class="navbar-brand" href="#">
+                Edit Page
+            </a>
+        </div>
+    </div>
+
+    <div class="navbar-text pull-right">
+        <a class="navbar-link" href="page-new.html">
+            <span class="glyphicon glyphicon-ok"></span>
+        </a>
+    </div>
+
+</div>
+</nav>
+
+<div class="container-fluid">
+    <div class="col-sm-4 col-md-3 sidebar">
+        <p>
+            <a href="page-edit.html">Blog Post <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+        </p>
+        <p>
+            <a href="page-edit.html">Blogs <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+        </p>
+        <p>
+            <a href="page-edit.html">Home <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+        </p>
+        <p>
+            <a href="page-edit.html">About <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+        </p>
+        <p>
+            <a href="page-edit.html">Contact Us<span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+        </p>
+    </div>
+    <div class="inverse-sidebar col-sm-8 col-md-9">
+        <label for="name">Name</label>
+        <input type="text"
+               id="name"
+               class="form-control"
+               placeholder="Name"/>
+        <label for="description">Title</label>
+        <input type="text"
+               id="description"
+               class="form-control"
+               placeholder="Page Title"/>
+    <a href="page-list.html"
+       class="btn btn-block btn-danger">
+        Delete
+    </a>
+    </div>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="navbar-text pull-right">
+        <a class="navbar-link" href="profile.html"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+    </div>
+</nav>
+</body>
+</html>
