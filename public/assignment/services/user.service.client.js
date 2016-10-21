@@ -23,13 +23,14 @@
         return api;
         function createUser(user) {
             var newUser = {
-                _id: (new Date()).getTime(),
+                _id: (new Date()).getTime()+"",
                 username : user.username,
                 password: user.password,
                 firstName : user.firstName,
                 lastName: user.lastName
             };
             users.push(newUser);
+            console.log(users);
             return newUser;
         }
 
@@ -65,6 +66,7 @@
                 if(oldUser._id === userID) {
                     oldUser['firstName'] = user['firstName'];
                     oldUser['lastName'] = user['lastName'];
+                    oldUser['email'] =user['email'];
                     return true;
                 }
             }

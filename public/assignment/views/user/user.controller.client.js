@@ -12,12 +12,18 @@
     function LoginController($location, UserService) {
         var vm = this;
         vm.login = login;
+        vm.register = register;
+
         function login(user) {
-            user = UserService.findUserByCredentials(user.username, user.password);
             if(user) {
-                $location.url("/user/" + user._id);
+                user = UserService.findUserByCredentials(user.username, user.password);
+                if (user) {
+                    $location.url("/user/" + user._id);
+                } else {
+                    vm.alert = "Unable to login";
+                }
             } else {
-                vm.alert = "Unable to login";
+                vm.alert ="Error Invalid input";
             }
         }
 
@@ -32,7 +38,7 @@
         vm.cancel =  cancel;
         function register(user) {
             if (user && user.username) {
-                if (user.password === user.verify) {
+                if (user.password === user.verifyPassword) {
                     user = UserService.createUser(user);
                     if (user) {
                         $location.url("/user/"+user._id);
@@ -60,7 +66,7 @@
         function init() {
             vm.user = UserService.findUserByID(vm.userId)
         }
-
+        init();
         function updateUser(user) {
             user = UserService.updateUser(vm.userId, user);
             if (user) {
@@ -71,7 +77,7 @@
         }
 
         function website() {
-            $location.url("/user"+vm.userId+"/website");
+            $location.url("/user/"+vm.userId+"/website");
         }
 
         function logout() {
