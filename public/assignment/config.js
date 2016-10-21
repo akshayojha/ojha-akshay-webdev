@@ -7,9 +7,6 @@
 
     function Config($routeProvider) {
         $routeProvider
-            .when("/", {
-                redirectTo: "/login"
-            })
             .when("/login", {
                 templateUrl: "views/user/login.view.client.html",
                 controller: "LoginController",
