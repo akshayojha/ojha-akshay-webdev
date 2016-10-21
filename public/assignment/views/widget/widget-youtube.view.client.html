@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Widget List</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
-    <link href="css/style.css" rel="stylesheet"/>
-</head>
-<body>
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="no-padding-left pull-left">
@@ -18,9 +7,9 @@
         </div>
 
         <div class="navbar-header pull-left">
-                <a class="navbar-brand" href="#">
-                    Widget Edit
-                </a>
+            <a class="navbar-brand" href="#">
+                Widget Edit
+            </a>
         </div>
 
         <div class="navbar-text no-padding-left pull-right">
@@ -33,7 +22,7 @@
 </nav>
 
 <div class="container-fluid">
-        <form>
+         <form>
             <div class="form-group">
                 <label for="name">
                     Name
@@ -41,7 +30,7 @@
                 <input id="name"
                        type="text"
                        class="form-control"
-                       placeholder="Widget Name">
+                       placeholder="Youtube Video Name">
             </div>
             <div class="form-group">
                 <label for="text">
@@ -50,16 +39,25 @@
                 <input id="text"
                        type="text"
                        class="form-control"
-                       placeholder="Widget Text">
+                       placeholder="Youtube Video Text">
             </div>
             <div class="form-group">
-                <label for="size">
-                    Size
+                <label for="url">
+                    URL
                 </label>
-                <input id="size"
+                <input id="url"
+                       type="text"
+                       class="form-control"
+                       placeholder="Youtube Video URL">
+            </div>
+            <div class="form-group">
+                <label for="width">
+                    Width
+                </label>
+                <input id="width"
                        type="number"
                        class="form-control"
-                       placeholder="Widget Size">
+                       placeholder="Youtube Video Width">
             </div>
         </form>
         <a href="widget-list.html"
@@ -72,5 +70,3 @@
         <a class="navbar-link" href="profile.html"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
     </div>
 </nav>
-</body>
-</html>
