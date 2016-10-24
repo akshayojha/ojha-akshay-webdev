@@ -1,19 +1,19 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="no-padding-left pull-left">
-            <a class="navbar-brand navbar-link" href="page-list.html">
+            <a class="navbar-brand navbar-link" ng-click="model.back()">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
         </div>
 
         <div class="nav-sidebar no-padding-left col-sm-4 col-md-3">
             <div class="navbar-header pull-left">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand">
                     Pages
                 </a>
             </div>
             <p class="navbar-text pull-right">
-                <a class="navbar-link" href="page-new.html">
+                <a class="navbar-link" ng-click="model.newPage()">
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
             </p>
@@ -21,14 +21,14 @@
 
         <div class="col-sm-6 col-md-7 no-padding-left">
             <div class="navbar-header pull-left">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand">
                     New Page
                 </a>
             </div>
         </div>
 
         <div class="navbar-text pull-right">
-            <a class="navbar-link" href="page-list.html">
+            <a class="navbar-link" ng-click="model.createPage(model.page)">
                 <span class="glyphicon glyphicon-ok"></span>
             </a>
         </div>
@@ -38,37 +38,32 @@
 
 <div class="container-fluid">
             <div class="col-sm-4 col-md-3 sidebar">
-            <p>
-                <a href="page-edit.html">Blog Post <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-            </p>
-            <p>
-                <a href="page-edit.html">Blogs <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-            </p>
-            <p>
-                <a href="page-edit.html">Home <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-            </p>
-            <p>
-                <a href="page-edit.html">About <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-            </p>
-            <p>
-                <a href="page-edit.html">Contact Us<span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-            </p>
+                <p ng-repeat="page in model.pages">
+                    <a ng-click="model.openPage(page)">
+                        {{page.name}}
+                        <a ng-click="model.editPage(page)">
+                            <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        </a>
+                    </a>
+                </p>
         </div>
         <div class="inverse-sidebar col-sm-8 col-md-9">
                     <label for="name">Name</label>
             <input type="text"
                    id="name"
                    class="form-control"
-                   placeholder="Name"/>
+                   placeholder="Name"
+            ng-model="model.page.name"/>
             <label for="description">Description</label>
             <input type="text"
                    id="description"
                    class="form-control"
-                   placeholder="Description"/>
+                   placeholder="Description"
+            ng-model="model.page.description"/>
         </div>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="navbar-text pull-right">
-        <a class="navbar-link" href="profile.html"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+        <a class="navbar-link" ng-click="model.profile()"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
     </div>
 </nav>

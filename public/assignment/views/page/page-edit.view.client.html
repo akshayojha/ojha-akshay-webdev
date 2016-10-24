@@ -39,7 +39,12 @@
 <div class="container-fluid">
     <div class="col-sm-4 col-md-3 sidebar">
         <p ng-repeat="page in model.pages">
-            <a ng-click="model.openPage(page)">{{model.page.name}}<a ng-click="model.editPage(page)"><span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a></a>
+            <a ng-click="model.openPage(page)">
+                {{page.name}}
+                <a ng-click="model.editPage(page)">
+                    <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span>
+                </a>
+            </a>
         </p>
     </div>
     <div class="inverse-sidebar col-sm-8 col-md-9">

@@ -1,37 +1,30 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-left">
-            <a class="navbar-brand navbar-link" href="#"><span class="pull-left glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>
+            <a class="navbar-brand navbar-link" ng-click="model.back()"><span class="pull-left glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>
         </div>
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Pages</a>
+            <a class="navbar-brand">Pages</a>
         </div>
         <div class="navbar-right">
-            <a class="navbar-brand navbar-link" href="page-new.html"><span class="pull-right glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+            <a class="navbar-brand navbar-link" ng-click="model.newPage()"><span class="pull-right glyphicon glyphicon-plus" aria-hidden="true"></span></a>
         </div>
     </div>
 </nav>
 
 <div class="container-fluid">
-    <p>
-        <a href="page-edit.html">Blog Post <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-    </p>
-    <p>
-        <a href="page-edit.html">Blogs <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-    </p>
-    <p>
-        <a href="page-edit.html">Home <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-    </p>
-    <p>
-        <a href="page-edit.html">About <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-    </p>
-    <p>
-        <a href="page-edit.html">Contact Us<span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+    <p ng-repeat="page in model.pages">
+        <a ng-click="model.openPage(page)">
+            {{page.name}}
+            <a ng-click="model.editPage(page)">
+                <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
+        </a>
     </p>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="navbar-text pull-right">
-        <a class="navbar-link" href="profile.html"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+        <a class="navbar-link" ng-click="model.profile()"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
     </div>
 </nav>

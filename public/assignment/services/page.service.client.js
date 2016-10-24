@@ -24,7 +24,7 @@
 
         function createPage(websiteId, page) {
             var newPage = {
-                _id: (new Date()).getTime(),
+                _id: (new Date()).getTime()+"",
                 name: page.name,
                 websiteId: websiteId,
                 description: page.description
@@ -34,12 +34,13 @@
         }
 
         function findPagesByWebsiteId(websiteId) {
+            var matches = [];
             for (var w in pages) {
-                if(pages[w]._id === websiteId) {
-                    return pages[w];
+                if(pages[w].websiteId === websiteId) {
+                    matches.push(pages[w]);
                 }
             }
-            return null;
+            return matches;
         }
 
         function findPageById(pageId) {

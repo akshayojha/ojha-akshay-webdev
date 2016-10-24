@@ -20,7 +20,7 @@
         vm.back = back;
 
         function init() {
-            vm.pages = PageService.findPagesByWebsiteId(userId);
+            vm.pages = PageService.findPagesByWebsiteId(vm.websiteId);
         }
         init();
 
@@ -82,7 +82,7 @@
         function createPage(page) {
             if (page) {
                 page =  PageService.createPage(vm.userId, page);
-                if (user) {
+                if (page) {
                     vm.success = "Successfully created a new page";
                     $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
                 } else {
@@ -136,7 +136,7 @@
         function createPage(page) {
             if (page) {
                 page =  PageService.createPage(vm.userId, page);
-                if (user) {
+                if (page) {
                     vm.success = "Successfully created a new page";
                     $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
                 } else {
