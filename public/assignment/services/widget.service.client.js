@@ -3,7 +3,9 @@
  */
 
 (function() {
-    angular.module("WebAppMaker").factory("WidgetService", WidgetService);
+    angular
+        .module("WebAppMaker")
+        .factory("WidgetService", WidgetService);
 
     function WidgetService() {
         var widgets = [
