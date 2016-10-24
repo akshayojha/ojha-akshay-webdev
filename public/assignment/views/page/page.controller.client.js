@@ -109,7 +109,7 @@
         vm.deletePage = deletePage;
 
         function init() {
-            vm.pages = PageService.findPageById(vm.pageId);
+            vm.page = PageService.findPageById(vm.pageId);
             vm.pages = PageService.findPagesByWebsiteId(vm.websiteId);
 
         }

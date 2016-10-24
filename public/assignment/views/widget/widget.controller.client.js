@@ -44,8 +44,12 @@
         }
 
         function getYoutubeURL(widget) {
-            var videoID = widget.url.split("/").splice(-1)[0];
-            return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + videoID);
+            if (widget.url) {
+                var videoID = widget.url.split("/");
+                videoID = videoID.splice(-1)[0];
+                return $sce.trustAsResourceUrl("https://www.youtube.com/embed/" + videoID);
+            }
+            return null;
         }
 
         function trustYoutubeURL(widget) {
@@ -63,11 +67,6 @@
         vm.editWidget = editWidget;
         vm.back = back;
         vm.createWidget = createWidget;
-
-        function init() {
-            vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
-        }
-        init();
 
         function profile() {
             $location.url("/user/"+vm.userId);
@@ -111,7 +110,7 @@
         vm.deleteWidget = deleteWidget;
 
         function init() {
-            vm.widgets = WidgetService.findWidgetById(vm.widgetId);
+            vm.widget = WidgetService.findWidgetById(vm.widgetId);
         }
         init();
 
