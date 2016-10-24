@@ -94,6 +94,7 @@
     function EditWebsiteController($location, $routeParams, WebsiteService) {
         var vm = this;
         vm.userId = $routeParams['uid'];
+        vm.websiteId = $routeParams['wid'];
         vm.profile = profile;
         vm.newWebsite = newWebsite;
         vm.openWebsite= openWebsite;

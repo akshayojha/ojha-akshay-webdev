@@ -21,7 +21,7 @@
 
         <div class="col-sm-6 col-md-7 no-padding-left">
             <div class="navbar-header pull-left">
-                <a class="navbar-brand navbar-blue" ng-click="model.editWebsite()">
+                <a class="navbar-brand navbar-blue">
                     Edit Website
                 </a>
             </div>
@@ -48,21 +48,21 @@
         </p>
     </div>
     <div class="inverse-sidebar col-sm-8 col-md-9">
-
-    <label for="websiteName">Website Name</label>
-    <input type="text"
-           ng-model="model.website.name"
-           id="websiteName"
-           class="form-control"
-           placeholder="Website Name"
-           value="{{model.website.name}}"/>
-    <label for="websiteDescription">Website Description</label>
-    <input type="text"
-           ng-model="model.website.description"
-           id="websiteDescription"
-           class="form-control"
-           placeholder="Website Description"
-           value="{{model.website.description}}"/>
+        <label for="websiteName">Website Name</label>
+        <input ng-model="model.website.name"
+               type="text"
+               id="websiteName"
+               class="form-control"
+               placeholder="Website Name"
+               value="{{model.website.name}}"
+        />
+        <label for="websiteDescription">Website Description</label>
+        <input ng-model="model.website.description"
+               type="text"
+               id="websiteDescription"
+               class="form-control"
+               placeholder="Website Description"
+               value="{{model.website.description}}"/>
         <a ng-click="model.deleteWebsite()"
            class="btn btn-block btn-danger">
             Delete
