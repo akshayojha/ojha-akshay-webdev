@@ -32,10 +32,10 @@
             $location.url("/user/"+ vm.userId + "/website/"+vm.websiteId+"/page/new");
         }
 
-        function openPage() {
+        function openPage(page) {
             $location.url("/user/"+ vm.userId + "/website/"+vm.websiteId+"/page/"+page._id + "/widget");
         }
-        function editPage() {
+        function editPage(page) {
             $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page/"+page._id);
         }
 
@@ -68,10 +68,10 @@
             $location.url("/user/"+ vm.userId + "/website/"+vm.websiteId+"/page/new");
         }
 
-        function openPage() {
+        function openPage(page) {
             $location.url("/user/"+ vm.userId + "/website/"+vm.websiteId+"/page/"+page._id + "/widget");
         }
-        function editPage() {
+        function editPage(page) {
             $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page/"+page._id);
         }
 
@@ -81,7 +81,7 @@
 
         function createPage(page) {
             if (page) {
-                page =  PageService.createPage(vm.userId, page);
+                page =  PageService.createPage(vm.websiteId, page);
                 if (page) {
                     vm.success = "Successfully created a new page";
                     $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
@@ -98,6 +98,7 @@
         var vm = this;
         vm.userId = $routeParams['uid'];
         vm.websiteId = $routeParams['wid'];
+        vm.pageId = $routeParams['pid'];
         vm.profile = profile;
         vm.newPage = newPage;
         vm.openPage= openPage;
@@ -122,10 +123,10 @@
             $location.url("/user/"+ vm.userId + "/website/"+vm.websiteId+"/page/new");
         }
 
-        function openPage() {
+        function openPage(page) {
             $location.url("/user/"+ vm.userId + "/website/"+vm.websiteId+"/page/"+page._id + "/widget");
         }
-        function editPage() {
+        function editPage(page) {
             $location.url("/user/"+ vm.userId +"/website/"+vm.websiteId+"/page/"+page._id);
         }
 
@@ -135,7 +136,7 @@
 
         function createPage(page) {
             if (page) {
-                page =  PageService.createPage(vm.userId, page);
+                page =  PageService.createPage(vm.websiteId, page);
                 if (page) {
                     vm.success = "Successfully created a new page";
                     $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
