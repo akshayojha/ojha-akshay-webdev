@@ -67,7 +67,7 @@
 
         function deletePage(pageId) {
             for (var index in pages) {
-                if(pageId[index]._id === pageId) {
+                if(pages[index]._id === pageId) {
                     pages.splice(index, 1);
                     return true;
                 }

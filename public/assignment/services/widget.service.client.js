@@ -30,7 +30,7 @@
 
         function createWidget(pageId, widget) {
             var newWidget = {
-                _id: (new Date()).getTime(),
+                _id: (new Date()).getTime()+"",
                 widgetType: widget.widgetType,
                 pageId: pageId,
                 size: widget.size,
@@ -41,12 +41,13 @@
         }
 
         function findWidgetsByPageId(pageId) {
+            var matches = [];
             for (var w in widgets) {
                 if(widgets[w].pageId === pageId) {
-                    return widgets[w];
+                    matches.push(widgets[w]);
                 }
             }
-            return null;
+            return matches;
         }
 
         function findWidgetById(widgetId) {
@@ -62,10 +63,10 @@
             for (var index in widgets) {
                 var oldWidget = widgets[index];
                 if(oldWidget._id === widgetId) {
-                    oldWidget['widgetType'] = widget['widgetType'];
-                    oldWidget['pageId'] = widget['pageId'];
                     oldWidget['size'] = widget['size'];
                     oldWidget['text'] = widget['text'];
+                    oldWidget['url'] = widget['url'];
+                    oldWidget['width'] = widget['width'];
                     return true;
                 }
             }
