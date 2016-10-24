@@ -1,34 +1,30 @@
 <nav class="navbar navbar-blue navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-left">
-            <a class="navbar-brand navbar-link navbar-blue" href="#"><span class="pull-left glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>
+            <a class="navbar-brand navbar-link navbar-blue" ng-click ="model.back()"><span class="pull-left glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>
         </div>
         <div class="navbar-header">
-            <a class="navbar-brand navbar-blue" href="#">Websites</a>
+            <a class="navbar-brand navbar-blue">Websites</a>
         </div>
         <div class="navbar-right">
-            <a class="navbar-brand navbar-link navbar-blue" href="website-new.html"><span class="pull-right glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+            <a class="navbar-brand navbar-link navbar-blue" ng-click="model.newWebsite()"><span class="pull-right glyphicon glyphicon-plus" aria-hidden="true"></span></a>
         </div>
     </div>
 </nav>
 
 <div class="container-fluid">
-    <p>
-        <a href="website-edit.html">Address Book App <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-    </p>
-    <p>
-        <a href="website-edit.html">Blogger <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-    </p>
-    <p>
-        <a href="website-edit.html">Blogging App <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-    </p>
-    <p>
-        <a href="website-edit.html">Script Testing App <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+    <p ng-repeat="website in model.websites">
+        <a ng-click="model.openWebsite(website)">
+            {{website.name}}
+            <a ng-click="model.editWebsite(website)">
+                <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
+        </a>
     </p>
 </div>
 
 <nav class="navbar navbar-blue navbar-fixed-bottom">
     <div class="navbar-text pull-right">
-        <a class="navbar-link navbar-blue" href="profile.html"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+        <a class="navbar-link navbar-blue" ng-click="model.profile()"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
     </div>
 </nav>

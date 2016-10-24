@@ -66,6 +66,7 @@
         function init() {
             vm.user = UserService.findUserByID(vm.userId)
         }
+
         init();
         function updateUser(user) {
             user = UserService.updateUser(vm.userId, user);

@@ -9,7 +9,7 @@
         .controller("EditWebsiteController", EditWebsiteController)
         .controller("NewWebsiteController", NewWebsiteController);
 
-    function WebsiteListController($routeParams, WebsiteService) {
+    function WebsiteListController($location, $routeParams, WebsiteService) {
         var vm = this;
         vm.userId = $routeParams["uid"];
         vm.profile = profile;
@@ -19,7 +19,7 @@
         vm.back = back;
 
         function init() {
-            vm.websites = WebsiteService.findWebsitesByUser(userId);
+            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
         }
         init();
 
@@ -31,10 +31,10 @@
             $location.url("/user/"+ vm.userId + "/website/new");
         }
 
-        function openWebsite() {
+        function openWebsite(website) {
             $location.url("/user/"+ vm.userId + "/website/"+website._id + "/page");
         }
-        function editWebsite() {
+        function editWebsite(website) {
             $location.url("/user/"+ vm.userId +"/website/"+website._id);
         }
 
@@ -66,10 +66,10 @@
             $location.url("/user/"+ vm.userId + "/website/new");
         }
 
-        function openWebsite() {
+        function openWebsite(website) {
             $location.url("/user/"+ vm.userId + "/website/"+website._id + "/page");
         }
-        function editWebsite() {
+        function editWebsite(website) {
             $location.url("/user/"+ vm.userId +"/website/"+website._id);
         }
 
@@ -80,7 +80,7 @@
         function createWebsite(website) {
             if (website) {
                 website =  WebsiteService.createWebsite(vm.userId, website);
-                if (user) {
+                if (website) {
                     vm.success = "Successfully created a new website";
                     $location.url("/user/"+vm.userId+"/website");
                 } else {
@@ -106,7 +106,6 @@
         function init() {
             vm.websites = WebsiteService.findWebsiteById(vm.websiteId);
             vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
-
         }
         init();
 
@@ -118,10 +117,10 @@
             $location.url("/user/"+ vm.userId + "/website/new");
         }
 
-        function openWebsite() {
+        function openWebsite(website) {
             $location.url("/user/"+ vm.userId + "/website/"+website._id + "/page");
         }
-        function editWebsite() {
+        function editWebsite(website) {
             $location.url("/user/"+ vm.userId +"/website/"+website._id);
         }
 
@@ -132,7 +131,7 @@
         function createWebsite(website) {
             if (website) {
                 website =  WebsiteService.createWebsite(vm.userId, website);
-                if (user) {
+                if (website) {
                     vm.success = "Successfully created a new website";
                     $location.url("/user/"+vm.userId+"/website");
                 } else {

@@ -38,20 +38,8 @@
 
 <div class="container-fluid">
     <div class="col-sm-4 col-md-3 sidebar">
-        <p>
-            <a ng-click="model.openPage(page)">Blog Post <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-        </p>
-        <p>
-            <a ng-click="model.openPage(page)">Blogs <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-        </p>
-        <p>
-            <a ng-click="model.openPage(page)">Home <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-        </p>
-        <p>
-            <a ng-click="model.openPage(page)">About <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-        </p>
-        <p>
-            <a ng-click="model.openPage(page)">Contact Us<span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+        <p ng-repeat="page in model.pages">
+            <a ng-click="model.openPage(page)">{{model.page.name}}<a ng-click="model.editPage(page)"><span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a></a>
         </p>
     </div>
     <div class="inverse-sidebar col-sm-8 col-md-9">
@@ -61,15 +49,14 @@
                class="form-control"
                placeholder="Name"
                ng-model="model.page.name"
-               value="{{model.page.name}}"
-        />
+               value="{{model.page.name}}"/>
         <label for="description">Title</label>
         <input type="text"
                id="description"
                class="form-control"
                placeholder="Page Title"
                value="{{model.page.title}}"
-        ng-model="model.page.title"/>
+               ng-model="model.page.title"/>
     <a ng-click="model.deletePage(model.page)"
        class="btn btn-block btn-danger">
         Delete

@@ -1,19 +1,19 @@
 <nav class="navbar navbar-blue navbar-fixed-top">
     <div class="container-fluid">
         <div class="no-padding-left pull-left">
-            <a class="navbar-brand navbar-link navbar-blue" href="website-list.html">
+            <a class="navbar-brand navbar-link navbar-blue" ng-click="model.back()">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
         </div>
 
         <div class="nav-sidebar no-padding-left col-sm-4 col-md-3">
             <div class="navbar-header pull-left">
-                <a class="navbar-brand navbar-blue" href="#">
+                <a class="navbar-brand navbar-blue">
                     Websites
                 </a>
             </div>
             <p class="navbar-text pull-right">
-                <a class="navbar-link navbar-blue" href="website-new.html">
+                <a class="navbar-link navbar-blue" ng-click="model.newWebsite()">
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
             </p>
@@ -21,14 +21,14 @@
 
         <div class="col-sm-6 col-md-7 no-padding-left">
             <div class="navbar-header pull-left">
-                <a class="navbar-brand navbar-blue" href="#">
+                <a class="navbar-brand navbar-blue" ng-click="model.editWebsite()">
                     Edit Website
                 </a>
             </div>
         </div>
 
         <div class="navbar-text pull-right">
-            <a class="navbar-link navbar-blue" href="website-list.html">
+            <a class="navbar-link navbar-blue" ng-click="model.updateWebsite(model.website)">
                 <span class="glyphicon glyphicon-ok"></span>
             </a>
         </div>
@@ -38,39 +38,40 @@
 
 <div class="container-fluid">
     <div class="col-sm-4 col-md-3 sidebar">
-        <p>
-            <a href="website-edit.html">Address Book App <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-        </p>
-        <p>
-            <a href="website-edit.html">Blogger <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-        </p>
-        <p>
-            <a href="website-edit.html">Blogging App <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
-        </p>
-        <p>
-            <a href="website-edit.html">Script Testing App <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+        <p ng-repeat="website in model.websites">
+            <a ng-click="model.openWebsite(website)">
+                {{website.name}}
+                <a ng-click="model.editWebsite(website)">
+                    <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span>
+                </a>
+            </a>
         </p>
     </div>
     <div class="inverse-sidebar col-sm-8 col-md-9">
 
     <label for="websiteName">Website Name</label>
     <input type="text"
+           ng-model="model.website.name"
            id="websiteName"
            class="form-control"
-           placeholder="Website Name"/>
+           placeholder="Website Name"
+           value="{{model.website.name}}"/>
     <label for="websiteDescription">Website Description</label>
     <input type="text"
+           ng-model="model.website.description"
            id="websiteDescription"
            class="form-control"
-           placeholder="Website Description"/>
-    <a href="website-list.html"
-       class="btn btn-block btn-danger">
-        Delete
-    </a>
+           placeholder="Website Description"
+           value="{{model.website.description}}"/>
+        <a ng-click="model.deleteWebsite()"
+           class="btn btn-block btn-danger">
+            Delete
+        </a>
     </div>
 </div>
+
 <nav class="navbar navbar-blue navbar-fixed-bottom">
     <div class="navbar-text pull-right">
-        <a class="navbar-link navbar-blue" href="profile.html"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+        <a class="navbar-link navbar-blue" ng-click="model.profile()"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
     </div>
 </nav>

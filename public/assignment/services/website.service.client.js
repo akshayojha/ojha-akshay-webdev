@@ -27,22 +27,24 @@
 
         function createWebsite(userId, website) {
             var newWebsite = {
-                _id: (new Date()).getTime(),
+                _id: (new Date()).getTime()+"",
                 name: website.name,
-                developerId: website.developerId,
+                developerId: userId,
                 description: website.description
             };
             websites.push(newWebsite);
+            console.log(websites);
             return newWebsite;
         }
 
         function findWebsitesByUser(userId) {
+            var match=[];
             for (var w in websites) {
-                if(websites[w]._id === userId) {
-                    return websites[w];
+                if(websites[w].developerId === userId) {
+                    match.push(websites[w]);
                 }
             }
-            return null;
+            return match;
         }
 
         function findWebsiteById(websiteId) {
@@ -69,7 +71,7 @@
 
         function deleteWebsite(websiteId) {
             for (var index in websites) {
-                if(websiteId[index]._id === websiteId) {
+                if(websites[index]._id === websiteId) {
                     websites.splice(index, 1);
                     return true;
                 }
