@@ -20,7 +20,14 @@
         vm.back = back;
 
         function init() {
-            vm.pages = PageService.findPagesByWebsiteId(vm.websiteId);
+            PageService
+                .findPagesByWebsiteId(vm.websiteId)
+                .success(function (pages) {
+                    vm.pages = pages;
+                })
+                .error(function(error) {
+                    console.log("Error: Cant get pages for the website");
+                })
         }
         init();
 
@@ -56,7 +63,14 @@
         vm.createPage = createPage;
 
         function init() {
-            vm.pages = PageService.findPagesByWebsiteId(vm.websiteId);
+            PageService
+                .findPagesByWebsiteId(vm.websiteId)
+                .success(function (pages) {
+                    vm.pages = pages;
+                })
+                .error(function(error) {
+                    console.log("Error: Cant get pages for the website");
+                })
         }
         init();
 
@@ -81,15 +95,14 @@
 
         function createPage(page) {
             if (page) {
-                page =  PageService.createPage(vm.websiteId, page);
-                if (page) {
-                    vm.success = "Successfully created a new page";
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
-                } else {
-                    vm.alert = "Error creating new page";
-                }
+                PageService.createPage(vm.websiteId, page)
+                    .then(function (response) {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                    }, function (error) {
+                        console.log("Error: Unable to create the page");
+                    });
             } else {
-                vm.alert = "Error invalid page name entered"
+                console.log("Error invalid page name entered");
             }
         }
     }
@@ -109,9 +122,23 @@
         vm.deletePage = deletePage;
 
         function init() {
-            vm.page = PageService.findPageById(vm.pageId);
-            vm.pages = PageService.findPagesByWebsiteId(vm.websiteId);
+            PageService
+                .findPageById(vm.websiteId)
+                .success(function (page) {
+                    vm.page = page.data;
+                })
+                .error(function(error) {
+                    console.log("Error: Cant get page for the website");
+                });
 
+            PageService
+                .findPagesByWebsiteId(vm.websiteId)
+                .success(function (pages) {
+                    vm.pages = pages.data;
+                })
+                .error(function(error) {
+                    console.log("Error: Cant get pages for the website");
+                });
         }
         init();
 
@@ -136,36 +163,33 @@
 
         function createPage(page) {
             if (page) {
-                page =  PageService.createPage(vm.websiteId, page);
-                if (page) {
-                    vm.success = "Successfully created a new page";
-                    $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
-                } else {
-                    vm.alert = "Error creating new page";
-                }
+                PageService.createPage(vm.websiteId, page)
+                    .then(function (response) {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                    }, function (error) {
+                        console.log("Error: Unable to create the page");
+                    });
             } else {
-                vm.alert = "Error invalid page name entered"
+                console.log("Error invalid page name entered");
             }
         }
 
         function deletePage() {
-            var response = PageService.deletePage(vm.pageId);
-            if (response) {
-                vm.success = "Successfully deleted page";
-                $location.url("/user/" + vm.userId + "/website/"+vm.websiteId+"/page");
-            } else {
-                vm.alert = "Error cant delete the page";
-            }
+            PageService.deletePage(vm.pageId)
+                .then(function (response) {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                    }, function (error) {
+                        console.log("Error: Unable to delete page");
+                    });
         }
 
         function updatePage(page) {
-            page = PageService.updatePage(vm.pageId, page);
-            if (page) {
-                vm.success = "Successfully updated the page";
-                $location.url("/user/" + vm.userId +"/website/"+vm.websiteId+ "/page");
-            } else {
-                vm.alert = "Error cant update the page";
-            }
+            PageService.updatePage(vm.pageId, page)
+                .then(function (response) {
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                }, function (error) {
+                    console.log("Error: Unable to update the page");
+                });
         }
     }
 })();

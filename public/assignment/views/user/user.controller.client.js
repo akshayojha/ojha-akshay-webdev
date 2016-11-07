@@ -16,17 +16,17 @@
 
         function login(user) {
             if(user) {
-                user = UserService.findUserByCredentials(user.username, user.password);
-                if (user) {
+                UserService.findUserByCredentials(user.username, user.password)
+                .then(function(response) {
+                    var user = response.data;
                     $location.url("/user/" + user._id);
-                } else {
-                    vm.alert = "Unable to login";
-                }
+                }, function (error) {
+                    console.log("Unable to login");
+                });
             } else {
-                vm.alert ="Error Invalid input";
+                console.log("Error Invalid input");
             }
         }
-
         function register() {
            $location.url("/register")
         }
@@ -39,15 +39,16 @@
         function register(user) {
             if (user && user.username) {
                 if (user.password === user.verifyPassword) {
-                    user = UserService.createUser(user);
-                    if (user) {
-                        $location.url("/user/"+user._id);
-                    } else {
-                        vm.alert = "Error creating new user";
-                    }
+                    UserService.createUser(user)
+                        .then(function (response) {
+                            var user =  response.data;
+                            $location.url("/user/"+user._id);
+                        }, function (error) {
+                            console.log("Error creating new user");
+                        });
                 }
             } else {
-                vm.alert = "Error invalid username entered"
+                console.log("Error invalid username entered");
             }
         }
 
@@ -64,16 +65,26 @@
         vm.logout = logout;
 
         function init() {
-            vm.user = UserService.findUserByID(vm.userId)
+            UserService
+                .findUserByID(vm.userId)
+                .then(function (response) {
+                    vm.user = response.data;
+                }, function (error) {
+                    console.log("Error: Unable to find user");
+                });
         }
 
         init();
         function updateUser(user) {
-            user = UserService.updateUser(vm.userId, user);
             if (user) {
-                vm.success = "Update successful";
+                UserService.updateUser(vm.userId, user)
+                    .then(function (response) {
+                        console.log("Updated");
+                    }, function (error) {
+                        console.log("Error: cant update the user");
+                    });
             } else {
-                vm.alert = "Error Unable to update user information";
+                console.log("Error Unable to update user information");
             }
         }
 

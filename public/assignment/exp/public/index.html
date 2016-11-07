@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Courses">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+
+    <title>
+        Courses
+    </title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js"></script>
+
+    <script src="app.js"></script>
+    <script src="course.service.js"></script>
+</head>
+<body>
+<div class="container" ng-controller="CourseController">
+    <h1>Courses</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Topic</th>
+            <th>Seats</th>
+            <th>Start Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="course in courses">
+            <td>{{course.title}}</td>
+            <td>{{course.seats}}</td>
+            <td>{{course.start | date:'short'}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
