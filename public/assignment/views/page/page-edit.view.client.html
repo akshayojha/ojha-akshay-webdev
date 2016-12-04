@@ -40,7 +40,7 @@
     <div class="col-sm-4 col-md-3 sidebar">
         <p ng-repeat="page in model.pages">
             <a ng-click="model.openPage(page)">
-                {{page.name}}
+                {{page.title}}
                 <a ng-click="model.editPage(page)">
                     <span class="pull-right glyphicon glyphicon-cog" aria-hidden="true"></span>
                 </a>
@@ -48,20 +48,20 @@
         </p>
     </div>
     <div class="inverse-sidebar col-sm-8 col-md-9">
-        <label for="name">Name</label>
+        <label for="name">Title</label>
         <input type="text"
                id="name"
                class="form-control"
                placeholder="Name"
-               ng-model="model.page.name"
-               value="{{model.page.name}}"/>
-        <label for="description">Title</label>
+               ng-model="model.page.title"
+               value="{{model.page.title}}"/>
+        <label for="description">Description</label>
         <input type="text"
                id="description"
                class="form-control"
-               placeholder="Page Title"
-               value="{{model.page.title}}"
-               ng-model="model.page.title"/>
+               placeholder="Page Description"
+               value="{{model.page.description}}"
+               ng-model="model.page.description"/>
     <a ng-click="model.deletePage(model.page)"
        class="btn btn-block btn-danger">
         Delete

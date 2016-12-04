@@ -3,7 +3,7 @@
  */
 module.exports = function() {
     var mongoose = require('mongoose');
-    var WebsiteSchema = require('./website.schema.server');
+    var WebsiteSchema = require('./website.schema.server')();
     var WebsiteModel = mongoose.model('WebsiteModel', WebsiteSchema);
 
     var api = {
@@ -20,26 +20,15 @@ module.exports = function() {
 
     function createWebsite(userId, website) {
         return WebsiteModel
-            .create(website)
-            .then(function (website) {
-                return model
-                    .userModel
-                    .findUserById(userId)
-                    .then(function (user) {
-                        user.websites.push(website);
-                        website._user= user._id;
-                        website.save();
-                        return user.save();
-                    });
-            });
+            .create(website);
     }
 
     function findAllWebsitesForUser(userId) {
-        return model.userModel.findAllWebsitesForUser(userId);
+        return WebsiteModel.find(userId);
     }
 
     function findWebsiteById(websiteId) {
-        return WebsiteModel.findWebsiteById(websiteId);
+        return WebsiteModel.findById(websiteId);
     }
 
     function updateWebsite(websiteId, website) {

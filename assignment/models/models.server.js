@@ -3,9 +3,9 @@
  */
 
 module.exports = function () {
-    var mongoose =  require('mongoose');
-    var connectionString = 'mongodb://admin:admin@ds035766.mlab.com:35766/ojha-akshay-webdev'
 
+    var connectionString = 'mongodb://localhost/test'
+    var mongoose =  require('mongoose');
     mongoose.connect(connectionString);
 
     var userModel = require('./user/user.model.server')();

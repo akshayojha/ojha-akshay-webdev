@@ -99,6 +99,8 @@
                     var widget = response.data;
                     $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + widget._id);
                 }, function (error) {
+                    console.log(newWidget);
+                    console.log(error);
                     console.log("Error: Unable to create Widget");
                 });
         }

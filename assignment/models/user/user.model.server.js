@@ -3,8 +3,8 @@
  */
 module.exports = function() {
     var mongoose = require('mongoose');
-    var UserSchema = require('./user.schema.server');
-    var UserModel = mongoose.model('UserModel', UserSchema);
+    var UserSchema = require('./user.schema.server')();
+    var UserModel = mongoose.model('userModel', UserSchema);
 
     var api = {
         createUser: createUser,
@@ -27,24 +27,24 @@ module.exports = function() {
 
     function findAllWebsitesForUser(userId) {
         return UserModel
-            .findUserById(userId)
+            .findById(userId)
             .populate("websites")
             .exec();
     }
 
     function findUserByCredentials(username, password) {
         return UserModel
-            .findUser({username:username, password:password});
+            .findOne({username:username, password:password});
     }
 
-    function findUserByUsername(username, password) {
+    function findUserByUsername(username) {
         return UserModel
-            .findByUserName({username:username});
+            .findOne({username:username});
     }
 
 
     function findUserById(userId) {
-        return UserModel.findUserById(userId);
+        return UserModel.findById(userId);
     }
 
     function updateUser(userId, user) {
