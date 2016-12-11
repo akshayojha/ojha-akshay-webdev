@@ -7,7 +7,6 @@ module.exports = function() {
     var MovieModel = mongoose.model('MovieModel', MovieSchema);
 
     var api = {
-        findAllMoviesForUser:findAllMoviesForUser,
         findMovieById:findMovieById,
         setModel: setModel
     };
@@ -15,10 +14,6 @@ module.exports = function() {
     return api;
 
     var model = {};
-
-    function findAllMoviesForUser(userId) {
-        return MovieModel.find(userId);
-    }
 
     function findMovieById(movieId) {
         return MovieModel.findById(movieId);

@@ -16,6 +16,7 @@ module.exports = function() {
         deleteUser: deleteUser,
         toggleLike: toggleLike,
         toggleFollowing: toggleFollowing,
+        findUserByEmail: findUserByEmail,
         setModel: setModel
     };
     
@@ -24,6 +25,10 @@ module.exports = function() {
 
     function findUserByUsername(username) {
         return UserModel.findOne({username: username});
+    }
+
+    function findUserByEmail(email) {
+        return UserModel.findOne({email: email});
     }
 
     function toggleLike(userId, mid) {

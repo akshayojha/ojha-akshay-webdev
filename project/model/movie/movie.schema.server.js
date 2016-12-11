@@ -6,10 +6,9 @@ module.exports = function () {
 
     var MovieSchema = mongoose.Schema(
         {
-            imdbId: {type:String, unique:true},
-            Plot: {type: String, required: true},
-            likes: {type:Number, default:0},
-            reviews: {type:Number, default:0}
+            movieId: {type:String, unique:true},
+            title:String,
+            plot:String
         }, {
             collection: "movie"
         });
