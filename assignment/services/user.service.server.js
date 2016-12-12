@@ -292,7 +292,7 @@ module.exports = function(app, model) {
     function register(req, res) {
         var user= req.body;
         userModel
-            .findUserByEmail(req.body.email)
+            .findUserByUsername(user.username)
             .then(
                 function (user) {
                     if(user) {

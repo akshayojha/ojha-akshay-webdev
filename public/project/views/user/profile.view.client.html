@@ -1,0 +1,53 @@
+<nav class="navbar navbar-blue navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand navbar-blue">
+                Profile
+            </a>
+        </div>
+            <p class="navbar-text pull-right">
+                <a ng-click="model.updateUser(model.user)" class="navbar-link">
+                    <span class="pull-right navbar-blue glyphicon glyphicon-ok">
+                    </span>
+                </a>
+            </p>
+    </div>
+</nav>
+
+
+<div class="container">
+        <h1>Profile</h1>
+
+        <form>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Username" ng-model ="model.user.username" disabled value="{{model.user.username}}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="alice@wonderland.com" ng-model="model.user.email"
+                       value="{{model.user.email}}">
+            </div>
+            <div class="form-group">
+                <label for="first-name">First Name</label>
+                <input type="text" class="form-control" id="first-name" placeholder="Alice" ng-model="model.user.firstName"
+                       value="{{model.user.firstName}}">
+            </div>
+            <div class="form-group">
+                <label for="last-name">Last Name</label>
+                <input type="text" class="form-control" id="last-name" placeholder="Wonderland" ng-model="model.user.lastName"
+                       value="{{model.user.lastName}}">
+            </div>
+        </form>
+
+        <a class="btn btn-primary btn-block"
+           ng-click="model.website()">Websites</a>
+        <a class="btn btn-danger  btn-block"
+           ng-click="model.logout()">Logout</a>
+    </div>
+
+<nav class="navbar navbar-blue navbar-fixed-bottom">
+    <div class="navbar-text pull-right">
+        <a class="navbar-link navbar-blue" ng-click="model.profile()"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+    </div>
+</nav>
