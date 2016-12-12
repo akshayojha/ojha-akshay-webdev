@@ -9,16 +9,17 @@
         .controller("RegisterController", RegisterController)
         .controller("ProfileController", ProfileController);
 
-    function LoginController($location, UserService) {
+    function LoginController($location, UserService, $rootScope) {
         var vm = this;
         vm.login = login;
         vm.register = register;
 
         function login(user) {
             if(user) {
-                UserService.findUserByCredentials(user.username, user.password)
+                UserService.login(user.username, user.password)
                 .then(function(response) {
                     var user = response.data;
+                    $rootScope.currentUser = user;
                     $location.url("/user/" + user._id);
                 }, function (error) {
                     console.log("Unable to login");
@@ -32,16 +33,17 @@
         }
     }
 
-    function RegisterController($location, UserService) {
+    function RegisterController($location, UserService, $rootScope) {
         var vm = this;
         vm.register = register;
         vm.cancel =  cancel;
         function register(user) {
             if (user && user.username) {
                 if (user.password === user.verifyPassword) {
-                    UserService.createUser(user)
+                    UserService.register(user)
                         .then(function (response) {
                             var user =  response.data;
+                            $rootScope.currentUser = user;
                             $location.url("/user/"+user._id);
                         }, function (error) {
                             console.log("Error creating new user");
@@ -66,7 +68,7 @@
 
         function init() {
             UserService
-                .findUserByID(vm.userId)
+                .findCurrentUser(vm.userId)
                 .then(function (response) {
                     vm.user = response.data;
                 }, function (error) {
@@ -93,7 +95,11 @@
         }
 
         function logout() {
-            $location.url("/login");
+            UserService
+                .logout()
+                .success(function () {
+                    $location.url("/login");
+                });
         }
     }
 })();

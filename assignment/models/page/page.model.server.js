@@ -21,7 +21,7 @@ module.exports = function() {
     function createPage(websiteId, page) {
         return PageModel
             .create(page);
-            }
+    }
 
     function findAllPagesForWebsite(websiteId) {
         return PageModel.find(websiteId);

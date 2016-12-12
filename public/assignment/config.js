@@ -20,7 +20,18 @@
             .when("/user/:uid", {
                 templateUrl: "views/user/profile.view.client.html",
                 controller: "ProfileController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    validateLogin:validateLogin
+                }
+            })
+            .when("/user/:uid", {
+                templateUrl: "views/user/profile.view.client.html",
+                controller: "ProfileController",
+                controllerAs: "model",
+                resolve: {
+                    validateLogin:validateLogin
+                }
             })
             .when("/user/:uid/website", {
                 templateUrl: "views/website/website-list.view.client.html",
@@ -70,5 +81,21 @@
             .otherwise({
                 redirectTo: "/login"
             });
+        function validateLogin(UserService, $q, $state) {
+            var deferred = $q.defer();
+            UserService
+                .validateLogin()
+                .then(function (response) {
+                    var user = response.data;
+                    if (user) {
+                        UserService.setCurrentUser(user);
+                        deferred.resolve();
+                    } else {
+                        deferred.reject();
+                        $state.go("home");
+                    }
+                });
+            return deferred.promise;
+        }
     }
 })();
