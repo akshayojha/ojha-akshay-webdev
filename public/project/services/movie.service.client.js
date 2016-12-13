@@ -19,13 +19,13 @@
             return $http.post(baseUrl, movie);
         }
         function searchMovieByTitle(title) {
-            var url = "http://omdbapi.com/?s=" + title;
+            var url = "https://omdbapi.com/?s=" + title;
             return $http.get(url);
         }
 
         function searchMovieByImdbID(imdbID) {
             console.log(imdbID);
-            var url = "http://omdbapi.com/?i=" + imdbID;
+            var url = "https://omdbapi.com/?i=" + imdbID;
             return $http.get(url);
         }
 
