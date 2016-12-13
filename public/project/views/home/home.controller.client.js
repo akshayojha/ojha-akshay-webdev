@@ -20,11 +20,9 @@
         init();
 
         function searchMovieByTitle(title) {
-            console.log(title);
             MovieService
                 .searchMovieByTitle(title)
                 .success(function (result) {
-                    console.log(result);
                     vm.movies = result.Search;
                 })
                 .error(function () {

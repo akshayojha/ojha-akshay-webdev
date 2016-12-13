@@ -79,6 +79,13 @@
                 resolve: {validateLogin: validateLogin}
 
             })
+            .when("/user/:uid/movie/:mid", {
+                templateUrl: "views/user/favorites.view.client.html",
+                controller: "FavoritesController",
+                controllerAs: "model",
+                resolve: {validateLogin: validateLogin}
+
+            })
             .otherwise({
                 redirectTo: "/login"
             });

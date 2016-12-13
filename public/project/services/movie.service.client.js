@@ -10,11 +10,14 @@
 
         var api = {
             searchMovieById: searchMovieByImdbID,
+            addMovie: addMovie,
             searchMovieByTitle: searchMovieByTitle,
             getMovieDetailsById:getMovieDetailsById
         };
         return api;
-
+        function addMovie(movie) {
+            return $http.post(baseUrl, movie);
+        }
         function searchMovieByTitle(title) {
             var url = "http://omdbapi.com/?s=" + title;
             return $http.get(url);

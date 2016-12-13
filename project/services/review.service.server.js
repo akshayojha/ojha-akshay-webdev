@@ -19,7 +19,7 @@ module.exports = function (app, model) {
         var mid = req.params.mid;
         var review = req.body;
         reviewModel
-            .addReview(userId, mid, review)
+            .createReview(userId, mid, review)
             .then(function (review) {
                 res.json(review);
             }, function (error) {

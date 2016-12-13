@@ -23,6 +23,7 @@ module.exports = function () {
     function createReview(userId, mid, review) {
         review._user = userId;
         review.movieId = mid;
+        console.log(review);
         return ReviewModel.create(review);
     }
 

@@ -37,6 +37,45 @@
         </div>
 
         <div class="container">
+
         </div>
-</div>
+    </div>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <div class="container">
+        <div class="row">
+            <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+            <script>
+                tinymce.init({
+                    selector: "textarea",
+                    plugins: [
+                        "advlist autolink lists link image charmap print preview anchor",
+                        "searchreplace visualblocks code fullscreen",
+                        "insertdatetime media table contextmenu paste"
+                    ],
+                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+                });
+            </script>
+            <hr>
+
+            <div class="well">
+                <h4><i class="fa fa-paper-plane-o"></i> Write a review:</h4>
+                <form role="form">
+                    <div class="form-group">
+                        <textarea ng-model="model.review"class="form-control" rows="3"></textarea>
+                    </div>
+                    <button ng-click="model.addReview(model.review)" type="submit" name="say" value="" class="btn btn-primary"><i class="fa fa-reply"></i> Submit</button>
+                </form>
+            </div>
+            <h3>Past Reviews </h3>
+            <h3 ng-repeat="review in model.reviews">
+                <i class="fa fa-comment">
+                    {{review._user.username}} says:
+                </i>
+                <small>{{review.Title}}</small>
+            </h3>
+            <p>{{review.description}}</p>
+
+        </div>
+
+    </div>
 </div>

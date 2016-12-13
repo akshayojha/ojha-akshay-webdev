@@ -6,6 +6,8 @@ module.exports = function(app, model) {
 
     app.get("/ppt/movie/:mid", findMovieById);
 
+    app.post("/ppt/movie", addMovie);
+
     function findMovieById(req, res) {
         var movieId = req.params.mid;
         model
@@ -19,5 +21,16 @@ module.exports = function(app, model) {
                     res.send(error);
                 }
             );
+    }
+    function addMovie(req, res) {
+        var movie = req.body;
+        model
+            .movieModel
+            .addMovie(movie)
+            .then(function (movie) {
+                res.json(movie);
+            }, function (err) {
+                res.sendStatus(200);
+            });
     }
 };

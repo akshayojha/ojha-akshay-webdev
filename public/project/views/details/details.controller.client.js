@@ -78,9 +78,12 @@
                 .then(function (response) {
                     if (response.data) {
                         vm.reviews = response.data;
+                    } else {
+                        console.log("SDa");
+
                     }
                 });
-        }
+            }
 
         function addReview(review) {
             ReviewService
