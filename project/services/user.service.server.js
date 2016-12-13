@@ -4,7 +4,7 @@
 
 module.exports = function(app, model) {
 
-    var security = require('passport');
+    var passport = require('passport');
     var bcrypt = require('bcrypt-nodejs');
     var session = require('express-session');
     var cookieParser  = require('cookie-parser');

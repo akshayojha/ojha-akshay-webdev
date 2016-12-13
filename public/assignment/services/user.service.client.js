@@ -36,12 +36,7 @@
             return  $http.post("/api/validateLogin");
         }
 
-        function login(username, password) {
-            var user = {
-                username: username,
-                password: password
-            };
-
+        function login(user) {
             return  $http.post("/api/login",user);
         }
 

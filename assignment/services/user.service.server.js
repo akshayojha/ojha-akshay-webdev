@@ -15,7 +15,7 @@ module.exports = function(app, model) {
 
 
     app.use(session({
-        secret: 'session-secret',
+        secret: 'this is the secret',
         resave: true,
         saveUninitialized: true
     }));
@@ -35,13 +35,9 @@ module.exports = function(app, model) {
         callbackURL: process.env.GOOGLE_CALLBACK_URL
     };
 
-    var ls = new LocalStrategy(localStrategy);
-    var fs = new FacebookStrategy(facebookConfig, facebookStrategy);
-    var gs = new GoogleStrategy(googleConfig, googleStrategy);
-
-    passport.use(ls);
-    passport.use(fs);
-    passport.use(gs);
+    passport.use(new LocalStrategy(localStrategy));
+    passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+    passport.use(new GoogleStrategy(googleConfig, googleStrategy));
 
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
@@ -50,9 +46,10 @@ module.exports = function(app, model) {
     app.post("/api/user", createUser);
     app.get("/api/user", findUser);
     app.get("/api/user/:userID", findUserByID);
-    app.put("/api/user/:userID", updateUser);
-    app.delete("/api/user/:userID", deleteUser);
+    app.put("/api/user/:userID", loggedInAndSelf, updateUser);
+    app.delete("/api/user/:userID", loggedInAndSelf, deleteUser);
     app.post('/api/login', passport.authenticate('local'), login);
+    app.post('/api/checkAdmin', checkAdmin);
     app.post('/api/validateLogin', validateLogin);
     app.post('/api/logout', logout);
     app.post('/api/register', register);
@@ -70,7 +67,16 @@ module.exports = function(app, model) {
             failureRedirect: '/assignment/#/login'
         }));
 
-
+    function loggedInAndSelf(req, res, next) {
+        var loggedIn = req.isAuthenticated();
+        var userId = req.params.uid;
+        var self = userId == req.user._id;
+        if(loggedIn && self){
+            next();
+        } else{
+            send.sendStatus(400).message("You are not authorized to perform this action.");
+        }
+    }
     function findUser(req, res) {
         var username = req.query['username'];
         var password = req.query['password'];
@@ -264,12 +270,15 @@ module.exports = function(app, model) {
             .findUserByUsername(username)
             .then(
                 function (user) {
+                    console.log(bcrypt.compareSync(password, user.password));
                     if(user && bcrypt.compareSync(password, user.password)) {
+                        console.log("local strategy");
                         return done(null, user);
                     }
                     return done(null, false);
                 },
                 function (error) {
+
                     res.sendStatus(400).message(error);
                 }
             );
@@ -284,40 +293,38 @@ module.exports = function(app, model) {
     }
 
     function validateLogin(req, res) {
-        if (req.isAuthenticated()) {
-            req.user;
-        } else {'0'}
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
+    function checkAdmin(req, res) {
+        var loggedIn = req.isAuthenticated();
+        var isAdmin = req.user.role == "ADMIN";
+        if(loggedIn && isAdmin){
+            res.json(req.user);
+        }else{
+            res.send('0');
+        }
     }
 
     function register(req, res) {
-        var user= req.body;
+        var user = req.body;
+        user.password = bcrypt.hashSync(user.password);
         userModel
-            .findUserByUsername(user.username)
-            .then(
-                function (user) {
-                    if(user) {
-                        res.status(400).send("Already exists");
-                    } else {
-                        user.password =bcrypt.hashSync(user.password);
-                        return userModel
-                            .createUser(user)
-                            .then(
-                                function (user) {
-                                    req.login(user, function (err) {
-                                        if(err) {
-                                            res.sendStatus(400).send(err);
-                                        }else{
-                                            res.json(user);
-                                        }
-                                    })
-                                },
-                                function (error) {
-                                    res.sendStatus(400).send(error);
-                                }
-
-                            );
-                    }
+            .createUser(user)
+            .then(function (user) {
+                if (user) {
+                    req.login(user, function (err) {
+                        if (err) {
+                            res.status(400).send(err);
+                        } else {
+                            res.json(user);
+                        }
+                    });
                 }
-            )
+            }, function (error) {
+                if (error.code === 11000)
+                    res.status(409).send("Already exists");
+                else
+                    res.status(400).send(error);
+            });
     }
 };

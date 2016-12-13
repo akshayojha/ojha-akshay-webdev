@@ -38,6 +38,7 @@ module.exports = function() {
     }
 
     function findUserByCredentials(username, password) {
+
         return UserModel
             .findOne({username:username, password:password});
     }

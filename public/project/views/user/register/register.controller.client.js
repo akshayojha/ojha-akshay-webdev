@@ -1,7 +1,11 @@
 /**
  * Created by ghost on 12/12/16.
  */
-(function RegisterController($location, UserService, $rootScope) {
+(function () {
+    angular
+        .module("PPTApp")
+        .controller("RegisterController", RegisterController);
+    function RegisterController($location, UserService, $rootScope) {
     var vm = this;
     vm.register = register;
     vm.cancel = cancel;
@@ -25,4 +29,4 @@
     function cancel() {
         $location.url("/login");
     }
-})();
+}})();

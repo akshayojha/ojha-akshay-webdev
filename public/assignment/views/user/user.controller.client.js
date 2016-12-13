@@ -16,11 +16,11 @@
 
         function login(user) {
             if(user) {
-                UserService.login(user.username, user.password)
+                UserService.login(user)
                 .then(function(response) {
                     var user = response.data;
                     $rootScope.currentUser = user;
-                    $location.url("/user/" + user._id);
+                    $location.url("/user/");
                 }, function (error) {
                     console.log("Unable to login");
                 });
@@ -46,6 +46,7 @@
                             $rootScope.currentUser = user;
                             $location.url("/user/"+user._id);
                         }, function (error) {
+                            console.log(error);
                             console.log("Error creating new user");
                         });
                 }
