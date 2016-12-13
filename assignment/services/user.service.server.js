@@ -145,7 +145,7 @@ module.exports = function(app, model) {
                     }
                 },
                 function (error) {
-                    res.sendStatus(404);
+                    res.sendStats(404);
                 }
             );
     }

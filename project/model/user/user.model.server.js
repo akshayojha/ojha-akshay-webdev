@@ -62,6 +62,8 @@ module.exports = function() {
     }
 
     function createUser(user) {
+        console.log("rc");
+        console.log(user);
         return UserModel
             .create(user);
     }

@@ -8,13 +8,19 @@ module.exports = function() {
 
     var api = {
         findMovieById:findMovieById,
-        setModel: setModel
+        setModel: setModel,
+        addMovie:addMovie
     };
 
     return api;
 
     var model = {};
 
+    function addMovie(movie) {
+        movie.movieId = movie.id.toString();
+        return MovieModel.create(movie);
+    }
+    
     function findMovieById(movieId) {
         return MovieModel.findById(movieId);
     }

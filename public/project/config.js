@@ -17,17 +17,17 @@
                 controllerAs: "model"
             })
             .when("/login", {
-                templateUrl: "views/user/login.view.client.html",
+                templateUrl: "views/user/login/login.view.client.html",
                 controller: "LoginController",
                 controllerAs: "model"
             })
             .when("/register", {
-                templateUrl: "views/user/register.view.client.html",
+                templateUrl: "views/user/register/register.view.client.html",
                 controller: "RegisterController",
                 controllerAs: "model"
             })
             .when("/user", {
-                templateUrl: "views/user/profile.view.client.html",
+                templateUrl: "views/user/profile/profile.view.client.html",
                 controller: "ProfileController",
                 controllerAs: "model",
                 resolve: {validateLogin: validateLogin}
@@ -49,7 +49,7 @@
                 templateUrl: "views/details/details.view.client.html",
                 controller: "DetailController",
                 controllerAs: "model",
-                resolve: {validateLogin: validateLogin}
+                //resolve: {validateLogin: validateLogin}
             })
             .when("/user/:uid/followers", {
                 templateUrl: "views/user/followers.view.client.html",
@@ -82,51 +82,51 @@
             .otherwise({
                 redirectTo: "/login"
             });
-    }
 
-    function validateLogin(UserService, $q, $state) {
-        var deferred = $q.defer();
-        UserService
-            .isCritic()
-            .then(function (response) {
-                var user = response.data;
-                if (user) {
-                    UserService.setCurrentUser(user);
-                    deferred.resolve();
-                } else {
-                    deferred.reject();
-                    $state.go("home");
-                }
-            });
-        return deferred.promise;
-    }
-
-    function isCritic(UserService, $q, $location, $rootScope) {
-        var deferred = $q.defer();
-
-        UserService
-            .isCritic()
-            .then(function (response) {
-                var user = response.data;
-
-                if (user) {
-                    if (user && user.role == 'critic') {
+        function validateLogin(UserService, $q, $location, $rootScope) {
+            var deferred = $q.defer();
+            UserService
+                .validateLogin()
+                .then(function (response) {
+                    var user = response.data;
+                    if (user) {
                         $rootScope.currentUser = user;
                         deferred.resolve();
-                    }
-                    else {
+                    } else {
+                        deferred.reject();
                         $rootScope.currentUser = null;
                         $location.url("/login");
-                        deferred.reject();
                     }
-                }
-                else {
-                    deferred.reject();
-                    $location.url("/login");
-                }
-            });
+                });
+            return deferred.promise;
+        }
 
-        return deferred.promise;
+        function isCritic(UserService, $q, $location, $rootScope) {
+            var deferred = $q.defer();
+
+            UserService
+                .isCritic()
+                .then(function (response) {
+                    var user = response.data;
+
+                    if (user) {
+                        if (user && user.role == 'critic') {
+                            $rootScope.currentUser = user;
+                            deferred.resolve();
+                        }
+                        else {
+                            $rootScope.currentUser = null;
+                            $location.url("/login");
+                            deferred.reject();
+                        }
+                    }
+                    else {
+                        deferred.reject();
+                        $location.url("/login");
+                    }
+                });
+
+            return deferred.promise;
+        }
     }
-
 })();

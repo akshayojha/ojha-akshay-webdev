@@ -5,10 +5,11 @@ input.form-control {
 body {
     padding-top: 60px;
     padding-bottom: 60px;
+    background-color: #E8DDCB ;
 }
 
 .navbar-blue {
-    background-color: royalblue;
+    background-color: #033649;
     color: white;
 }
 
@@ -40,3 +41,4 @@ body {
 .list-group-item {
     border: none;
 }
+

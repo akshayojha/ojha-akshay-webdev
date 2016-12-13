@@ -14,7 +14,6 @@
     </div>
 </nav>
 
-
 <div class="container">
         <h1>Profile</h1>
         <form>
@@ -41,13 +40,14 @@
 
     <a class="btn btn-danger  btn-block"
            ng-click="model.logout()">Logout</a>
-    </div>
-
-<nav class="navbar navbar-blue navbar-fixed-bottom">
     <a class="btn btn-primary btn-block"
        ng-click="model.getFollowers()">Followers</a>
     <a class="btn btn-primary btn-block"
        ng-click="model.getLikes()">Likes</a>
+    </div>
+
+<nav class="navbar navbar-blue navbar-fixed-bottom">
+
     <div class="navbar-text pull-right">
         <a class="navbar-link navbar-blue" ng-click="model.profile()"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
     </div>

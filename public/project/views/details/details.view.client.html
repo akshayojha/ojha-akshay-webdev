@@ -1,0 +1,42 @@
+<div class="container-fluid">
+    <h1>{{model.movie.Title}}</h1>
+    <div class="row">
+        <div class="col-xs-6">
+            <div>
+                Directed By: {{model.movie.Director}}
+            </div>
+
+            <div>
+                Rated: {{model.movie.Rated}}
+            </div>
+
+            <div>
+                Released: {{model.movie.Released}}
+            </div>
+            <div>
+                Plot: {{model.movie.Plot}}
+            </div>
+            <div>
+                Actors:
+                <ul>
+                    <li ng-repeat="actor in model.Actors">
+                        {{actor}}
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                {{model.likes}} users like this movie
+            </div>
+            <div>
+                {{model.reviewCount}} users reviewed this movie
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <img ng-src="{{model.movie.Poster}}" height="300px"/>
+        </div>
+
+        <div class="container">
+        </div>
+</div>
+</div>

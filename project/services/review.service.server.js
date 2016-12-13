@@ -30,7 +30,7 @@ module.exports = function (app, model) {
     function findAllReviewsForMovieId(req, res) {
         var mid = req.params.mid;
         reviewModel
-            .findAllReviewsForMovieId(mid)
+            .findAllReviewsByMovieId(mid)
             .then(function (reviews) {
                 res.json(reviews);
             }, function (error) {

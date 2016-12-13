@@ -6,8 +6,8 @@
             </a>
         </div>
             <p class="navbar-text pull-right">
-                <a ng-click="model.updateUser(model.user)" class="navbar-link">
-                    <span class="pull-right navbar-blue glyphicon glyphicon-ok">
+                <a ng-click="model.logout()" class="navbar-link">
+                    <span class="pull-right navbar-blue glyphicon glyphicon-log-out">
                     </span>
                 </a>
             </p>
@@ -41,9 +41,7 @@
         </form>
 
         <a class="btn btn-primary btn-block"
-           ng-click="model.website()">Websites</a>
-        <a class="btn btn-danger  btn-block"
-           ng-click="model.logout()">Logout</a>
+           ng-click="model.updateUser(model.user)">Save Changes</a>
     </div>
 
 <nav class="navbar navbar-blue navbar-fixed-bottom">

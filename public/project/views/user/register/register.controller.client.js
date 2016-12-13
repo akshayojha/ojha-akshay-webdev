@@ -16,9 +16,12 @@
                     .then(function (response) {
                         var user = response.data;
                         $rootScope.currentUser = user;
+                        console.log(user);
+                        console.log("sadsadasd");
                         $location.url("/user");
+
                     }, function (error) {
-                        vm.alert("Error creating new user");
+                        console.log("Error creating new user");
                     });
             }
         } else {

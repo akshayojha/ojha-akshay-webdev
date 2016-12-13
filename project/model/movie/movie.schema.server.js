@@ -8,7 +8,9 @@ module.exports = function () {
         {
             movieId: {type:String, unique:true},
             title:String,
-            plot:String
+            plot:String,
+            reviews: [{type: mongoose.Schema.Types.ObjectId, ref:'ReviewModel'}],
+            likes: [{type: mongoose.Schema.Types.ObjectId, ref:'UserModel'}],
         }, {
             collection: "movie"
         });

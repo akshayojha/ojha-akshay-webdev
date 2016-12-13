@@ -6,17 +6,19 @@
         angular
             .module("PPTApp")
             .controller("ProfileController", ProfileController);
-    function ProfileController($location, $routeParams, UserService) {
+
+    function ProfileController($location, $routeParams, UserService, $rootScope, ReviewService) {
         var vm = this;
-        vm.userId = $routeParams['uid'];
         vm.updateUser = updateUser;
-        vm.website = website;
         vm.logout = logout;
+        vm.followers = getFollowers;
+        vm.toggleFollow = toggleFollow;
 
         function init() {
             UserService
-                .findCurrentUser(vm.userId)
+                .getCurrentUser()
                 .then(function (response) {
+                    $rootScope.currentUser = response.data;
                     vm.user = response.data;
                 }, function (error) {
                     console.log("Error: Unable to find user");
@@ -41,6 +43,10 @@
             $location.url("/user/"+vm.userId+"/website");
         }
 
+        function toggleFollow() {
+            
+        }
+        
         function logout() {
             UserService
                 .logout()

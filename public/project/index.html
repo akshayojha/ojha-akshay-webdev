@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="PopcornTime">
+<html lang="en" ng-app="PPTApp">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
@@ -27,22 +27,14 @@
     <script src="views/user/login/login.controller.client.js"></script>
     <script src="views/user/profile/profile.controller.client.js"></script>
     <script src="views/user/register/register.controller.client.js"></script>
-
-
-    <script src="directives/jga-directives.js"></script>
+    <script src="views/home/home.controller.client.js"></script>
+    <script src="views/details/details.controller.client.js"></script>
 </head>
-<body>
-    <div class="container-fluid" ng-controller="MovieAppController as model">
-        <h1>Search Movies!</h1>
-        <div class="input-group">
-            <input ng-model="title" type="text" class="form-control" placeholder="Search for...">
-            <span class="input-group-btn">
-                <button ng-click="model.searchMovieByTitle(title)" class="btn btn-default" type="button">Search</button>
-              </span>
-        </div>
-</div>
-<div ng-view>
 
+<body>
+<!--<div ng-include="'views/header/header.view.client.html'"></div>-->
+<div class="container">
+    <div ng-view></div>
 </div>
 </body>
 </html>

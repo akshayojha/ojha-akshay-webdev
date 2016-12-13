@@ -10,15 +10,12 @@ module.exports = function(app, model) {
     var cookieParser  = require('cookie-parser');
 
     var LocalStrategy    = require('passport-local').Strategy;
-    var FacebookStrategy = require('passport-facebook').Strategy;
 
     var movieModel = model.movieModel;
     var userModel = model.userModel;
 
-
-
     app.use(session({
-        secret: 'session-secret',
+        secret: 'this is the secret',
         resave: true,
         saveUninitialized: true
     }));
@@ -26,46 +23,42 @@ module.exports = function(app, model) {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    var facebookConfig = {
-        clientID     : process.env.FACEBOOK_CLIENT_ID,
-        clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
-        callbackURL  : process.env.FACEBOOK_CALLBACK_URL
-    };
 
-    var ls = new LocalStrategy(localStrategy);
-    var fs = new FacebookStrategy(facebookConfig, facebookStrategy);
-
-    passport.use(ls);
+    passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
 
+    app.get('/ppt/loggedIn', loggedIn);
 
     app.post("/ppt/user", createUser);
     app.get("/ppt/user", findUser);
     app.get("/ppt/user/:userID", findUserByID);
-    app.put("/ppt/user/:userID", updateUser);
+    app.put("/ppt/user/:userID", loggedInAndSelf, updateUser);
+
     app.delete("/ppt/user/:userID", deleteUser);
     app.post('/ppt/login', passport.authenticate('local'), login);
-    app.get ('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
     app.post('/ppt/validateLogin', validateLogin);
     app.post('/ppt/logout', logout);
     app.post ('/ppt/register', register);
     app.get('/ppt/user/:uid/follows', getFollowers);
-    app.get('/auth/facebook/callback',
-        passport.authenticate('facebook', {
-            successRedirect: '#/profile',
-            failureRedirect: '/#/login'
-        }));
 
 
-
-    passport.use(fs);
-
-
+    function loggedInAndSelf(req, res, next) {
+        var loggedIn = req.isAuthenticated();
+        var userId = req.params.uid;
+        var self = userId == req.user._id;
+        if(loggedIn && self){
+            next();
+        } else{
+            send.sendStatus(400).message("You are not authorized to perform this action.");
+        }
+    }
     function serializeUser(user, done) {
         done(null, user);
     }
-
+    function loggedIn(req, res) {
+        res.send(req.isAuthenticated() ? req.user : null);
+    }
     function deserializeUser(user, done) {
         userModel
             .findUserById(user._id)
@@ -80,34 +73,7 @@ module.exports = function(app, model) {
     }
 
 
-    function facebookStrategy(token, refreshToken, profile, done) {
-        userModel
-            .findUserByEmail(profile.emails[0].value)
-            .then(
-                function(facebookUser) {
-                    if(facebookUser) {
-                        return done(null, facebookUser);
-                    } else {
-                        facebookUser = {
-                            email: profile.emails[0].value,
-                            firstName: profile.name.givenName,
-                            lastName: profile.name.familyName,
-                            facebook: {
-                                token: token,
-                                id: profile.id
-                            }
-                        };
-                        userModel
-                            .createUser(facebookUser)
-                            .then(
-                                function(user) {
-                                    done(null, user);
-                                }
-                            );
-                    }
-                }
-            );
-    }
+
 
     function localStrategy(username, password, done) {
         userModel
@@ -129,13 +95,16 @@ module.exports = function(app, model) {
         var username = req.query['username'];
         var password = req.query['password'];
 
-        if(username && password){
-            findUserByCredentials(username,password, res);
+        if (username && password) {
+            findUserByCredentials(username, password, res);
             return;
         }
-        if(username){
+        if (username) {
             findUserByUsername(username, res);
             return;
+        }
+        else {
+            res.json(req.user);
         }
     }
 
@@ -178,6 +147,7 @@ module.exports = function(app, model) {
     }
 
     function findUserByCredentials(username, password, res) {
+        var password = bcrypt.compareSync(password);
         model
             .userModel
             .findUserByCredentials(username, password)
@@ -193,6 +163,15 @@ module.exports = function(app, model) {
                     res.sendStatus(404);
                 }
             );
+    }
+    function checkAdmin(req, res) {
+        var loggedIn = req.isAuthenticated();
+        var isAdmin = req.user.role == "ADMIN";
+        if(loggedIn && isAdmin){
+            res.json(req.user);
+        }else{
+            res.send('0');
+        }
     }
 
     function updateUser(req, res) {
@@ -238,41 +217,30 @@ module.exports = function(app, model) {
     }
 
     function validateLogin(req, res) {
-        if (req.isAuthenticated()) {
-            req.user;
-        }
+        res.send(req.isAuthenticated() ? req.user : '0');
     }
 
     function register(req, res) {
-        var user= req.body;
-        userModel
-            .findUserByEmail(req.body.email)
-            .then(
-                function (user) {
-                    if(user) {
-                        res.status(400).send("Already exists");
-                    } else {
-                        user.password =bcrypt.hashSync(user.password);
-                        return userModel
-                            .createUser(user)
-                            .then(
-                                function (user) {
-                                    req.login(user, function (err) {
-                                        if(err) {
-                                            res.sendStatus(400).send(err);
-                                        }else{
-                                            res.json(user);
-                                        }
-                                    })
-                                },
-                                function (error) {
-                                    res.sendStatus(400).send(error);
-                                }
-
-                            );
-                    }
+        var user = req.body;
+        user.password = bcrypt.hashSync(user.password);
+         userModel
+            .createUser(user)
+            .then(function (user) {
+                if (user) {
+                    req.login(user, function (err) {
+                        if (err) {
+                            res.status(400).send(err);
+                        } else {
+                            res.json(user);
+                        }
+                    });
                 }
-            )
+            }, function (error) {
+                if (error.code === 11000)
+                    res.status(409).send("Already exists");
+                else
+                    res.status(400).send(error);
+            });
     }
 
     function getFollowers(req, res) {
