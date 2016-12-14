@@ -8,7 +8,7 @@
 
 <div ng-repeat="review in model.reviews">
     <div class="media" >
-        <a class="pull-left" href="#/search/">
+        <a class="pull-left" href="#/details/{{review.movieId}}">
             <img class="media-object media-object-movie thumbnail" ng-src={{review.movie.Poster}} alt="">
         </a>
         <h3>
