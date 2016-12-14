@@ -21,8 +21,8 @@
     </div>
 </div>
 <div class="container">
-    <a ng-if="currentUser._id != model.user._id && !model.following" class="btn btn-primary btn-block"
+    <a ng-if="currentUser.role!='critic' && !model.following" class="btn btn-primary btn-block"
        ng-click="model.followUser()">Follow</a>
-    <a ng-if="currentUser._id != model.user._id && model.following" class="btn btn-primary btn-block"
+    <a ng-if="currentUser.role!='critic' && model.following" class="btn btn-primary btn-block"
        ng-click="model.unfollowUser()">Unfollow</a>
 </div>
