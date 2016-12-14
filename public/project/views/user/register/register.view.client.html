@@ -1,31 +1,85 @@
 <div class="container">
-        <h1>Register</h1>
-        <input type="text"
-               class="form-control"
-               placeholder="firstName"
-               ng-model="model.user.firstName"/>
-        <input type="text"
-               class="form-control"
-               placeholder="lastName"
-               ng-model="model.user.lastName"/>
-        <input type="text"
-               class="form-control"
-               placeholder="email"
-               ng-model="model.user.email"/>
-        <input type="text"
-               class="form-control"
-               placeholder="username"
-               ng-model="model.user.username"/>
-        <input type="password"
-               class="form-control"
-               placeholder="password"
-               ng-model="model.user.password"/>
-        <input type="password"
-               class="form-control"
-               placeholder="verify password"
-               ng-model="model.user.verifyPassword"/>
-        <a class="btn btn-primary btn-block"
-           ng-click="model.register(model.user)">Register</a>
-        <a class="btn btn-danger  btn-block"
-           ng-click="model.cancel()">Cancel</a>
+
+        <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                        <form role="form">
+                                <h2>Please Sign Up <small>It's free and always will be.</small></h2>
+                                <hr class="colorgraph">
+                                <div class="row">
+                                        <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                        <input type="text" ng-model="model.user.firstName" name="first_name" id="first_name" class="form-control input-lg" placeholder="First Name" tabindex="1">
+                                                </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                        <input type="text" ng-model="model.user.lastName"  name="last_name" id="last_name" class="form-control input-lg" placeholder="Last Name" tabindex="2">
+                                                </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <input type="text" name="display_name" id="display_name" ng-model="model.user.username" class="form-control input-lg" placeholder="Username" tabindex="3">
+                                </div>
+                                <div class="form-group">
+                                        <input type="email" name="email" id="email" ng-model="model.user.email"  class="form-control input-lg" placeholder="Email Address" tabindex="4">
+                                </div>
+                                <div class="row">
+                                        <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                        <input type="password" ng-model="model.user.password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="5">
+                                                </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                        <input type="password" ng-model="model.user.verifyPassword"  name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="Confirm Password" tabindex="6">
+                                                </div>
+                                        </div>
+                                </div>
+                            <div class="btn-group" data-toggle="buttons-radio">
+                                <button ng-model="model.user.role"class="btn btn-default" value="general" type="button" >General</button>
+                                <button class="btn btn-default" ng-model="model.user.role"value="critic" type="button" >Critic</button>
+                            </div>
+
+
+                                <hr class="colorgraph">
+                                <div class="row">
+                                        <div class="col-xs-12 col-md-6"><input type="submit" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="7" ng-click="model.register(model.user)"></div>
+                                        <div class="col-xs-12 col-md-6"><a href="#/" class="btn btn-success btn-block btn-lg">Cancel</a></div>
+                                </div>
+                        </form>
+                </div>
+        </div>
 </div>
+<!--<div class="container">-->
+        <!--<h1>Register</h1>-->
+        <!--<input type="text"-->
+               <!--class="form-control"-->
+               <!--placeholder="firstName"-->
+               <!--ng-model="model.user.firstName"/>-->
+        <!--<input type="text"-->
+               <!--class="form-control"-->
+               <!--placeholder="lastName"-->
+               <!--ng-model="model.user.lastName"/>-->
+        <!--<input type="text"-->
+               <!--class="form-control"-->
+               <!--placeholder="email"-->
+               <!--ng-model="model.user.email"/>-->
+        <!--<input type="text"-->
+               <!--class="form-control"-->
+               <!--placeholder="username"-->
+               <!--ng-model="model.user.username"/>-->
+        <!--<input type="password"-->
+               <!--class="form-control"-->
+               <!--placeholder="password"-->
+               <!--ng-model="model.user.password"/>-->
+        <!--<input type="password"-->
+               <!--class="form-control"-->
+               <!--placeholder="verify password"-->
+               <!--ng-model="model.user.verifyPassword"/>-->
+        <!--<label class="radio-inline"><input type="radio" name="optradio">Option 1</label>-->
+        <!--<label class="radio-inline"><input type="radio" name="optradio">Option 2</label>-->
+        <!--<a class="btn btn-primary btn-block"-->
+           <!--ng-click="model.register(model.user)">Register</a>-->
+        <!--<a class="btn btn-danger  btn-block"-->
+           <!--ng-click="model.cancel()">Cancel</a>-->
+<!--</div>-->

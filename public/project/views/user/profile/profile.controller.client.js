@@ -12,7 +12,7 @@
         vm.updateUser = updateUser;
         vm.logout = logout;
         vm.followers = getFollowers;
-        vm.toggleFollow = toggleFollow;
+        vm.reviews = getReviews;
 
         function init() {
             UserService
@@ -40,17 +40,18 @@
         }
 
         function getFollowers() {
-            $location.url("/user/"+vm.userId+"/website");
+            $location.url("/user/"+vm.userId+"/followers");
         }
 
-        function toggleFollow() {
-            
+        function getReviews() {
+            $location.url("/user/"+vm.userId+"/reviews");
         }
-        
+
         function logout() {
             UserService
                 .logout()
                 .success(function () {
+                    UserService.setCurrentUser(null);
                     $location.url("/login");
                 });
         }

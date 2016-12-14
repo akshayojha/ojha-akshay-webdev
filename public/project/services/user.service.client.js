@@ -17,9 +17,11 @@
             findFollowing: findFollowing,
             findFavoriteMovies: findFavoriteMovies,
             findUserById: findUserById,
-            toggleFollow: toggleFollow,
+            followUser:followUser,
+            unfollowUser:unfollowUser,
             getCurrentUser: getCurrentUser,
-            toggleLike: toggleLike,
+            likeMovie: likeMovie,
+            unlikeMovie:unlikeMovie,
             updateUser: updateUser
         };
         return api;
@@ -53,8 +55,14 @@
             return $http.get(url);
         }
 
-        function toggleFollow(userId, followId) {
+
+        function followUser(userId, followId) {
             var url = "/ppt/user/" + userId + "/follow/" + followId;
+            return $http.put(url);
+        }
+
+        function unfollowUser(userId, followId) {
+            var url = "/ppt/user/" + userId + "/unfollow/" + followId;
             return $http.put(url);
         }
 
@@ -62,12 +70,18 @@
             var url = "/ppt/loggedIn";
             return $http.get(url);
         }
-        
-        function toggleLike(userId, movieId) {
-            var url = "/ppt/user/" + userId + "/movie/" + movieId + "/like";
+
+
+        function likeMovie(userId, movieId) {
+            var url = "/ppt/user/" + userId + "/movie/" + movieId + "/likeMovie";
             return $http.put(url);
         }
-        
+
+        function unlikeMovie(userId, movieId) {
+            var url = "/ppt/user/" + userId + "/movie/" + movieId + "/unlikeMovie";
+            return $http.put(url);
+        }
+
         function login(user) {
             var url = "/ppt/login";
             return $http.post(url, user);
@@ -84,7 +98,7 @@
         }
         
         function setCurrentUser(user) {
-            $rootScope.user = user;
+            $rootScope.currentUser= user;
         }
 
         function updateUser(userId, user) {

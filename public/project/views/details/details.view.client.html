@@ -1,5 +1,7 @@
 <div class="container-fluid">
     <h1>{{model.movie.Title}}</h1>
+    <hr class="colorgraph">
+
     <div class="row">
         <div class="col-xs-6">
             <div>
@@ -25,57 +27,67 @@
                 </ul>
             </div>
 
-            <div>
-                {{model.likes}} users like this movie
-            </div>
-            <div>
-                {{model.reviewCount}} users reviewed this movie
-            </div>
         </div>
         <div class="col-xs-6">
             <img ng-src="{{model.movie.Poster}}" height="300px"/>
         </div>
-
-        <div class="container">
-
+            <div class="container" ng-if="!currentUser">
+                <a href="#/login">
+                <span class="glyphicon glyphicon-thumbs-up">
+                Please login to like the movie
+            </span>
+                </a>
+            </div>
+        <div class="container" ng-if="currentUser && model.liked">
+            <a ng-click="model.toggleLike()">
+            <span style="background-color: #2b542c" class="glyphicon glyphicon-thumbs-down">
+                    Unlike
+                </span>
+            </a>
         </div>
+        <div class="container" ng-if="currentUser && !model.liked">
+            <a ng-click="model.toggleLike()">
+            <span class="glyphicon glyphicon-thumbs-up">
+                Like
+            </span>
+            </a>
+        </div>
+
     </div>
+
+
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <div class="container">
         <div class="row">
-            <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-            <script>
-                tinymce.init({
-                    selector: "textarea",
-                    plugins: [
-                        "advlist autolink lists link image charmap print preview anchor",
-                        "searchreplace visualblocks code fullscreen",
-                        "insertdatetime media table contextmenu paste"
-                    ],
-                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-                });
-            </script>
-            <hr>
-
-            <div class="well">
-                <h4><i class="fa fa-paper-plane-o"></i> Write a review:</h4>
-                <form role="form">
-                    <div class="form-group">
-                        <textarea ng-model="model.review"class="form-control" rows="3"></textarea>
-                    </div>
-                    <button ng-click="model.addReview(model.review)" type="submit" name="say" value="" class="btn btn-primary"><i class="fa fa-reply"></i> Submit</button>
-                </form>
-            </div>
+            <div ng-if="currentUser.role === 'critic'">
+            <label for="name">Title</label>
+            <input type="text"
+                   id="name"
+                   class="form-control"
+                   placeholder="Enter review title"
+                   ng-model="model.review.title"
+                   value=""/>
+            <label for="description">Description</label>
+            <input type="text"
+                   id="description"
+                   class="form-control"
+                   placeholder="Enter review description"
+                   value=""
+                   ng-model="model.review.description"/>
+            <button ng-click="model.addReview(model.review)" type="submit" name="say" value="" class="btn btn-primary"><i class="fa fa-reply"></i> Submit</button>
+        </div>
             <h3>Past Reviews </h3>
             <h3 ng-repeat="review in model.reviews">
                 <i class="fa fa-comment">
-                    {{review._user.username}} says:
+                    {{review.username}} said on {{review.timestamp | date:"MM/dd/yyyy 'at' h:mma"}}:
                 </i>
-                <small>{{review.Title}}</small>
+                <small>{{review.title}}</small>
+                <p>{{review.description}}</p>
+                <div ng-if="currentUser._id === review._user">
+                    <button ng-click="model.deleteReview($index)" type="delete" name="say" value="" class="btn btn-danger"><i class="fa"></i> Delete Post</button>
+                    <button ng-click="model.updateReview($index)" type="update" name="say" value="" class="btn btn-default"><i class="fa"></i> Update Post</button>
+                </div>
             </h3>
-            <p>{{review.description}}</p>
-
         </div>
-
     </div>
 </div>

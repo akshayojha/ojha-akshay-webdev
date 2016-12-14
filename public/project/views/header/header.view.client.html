@@ -1,4 +1,4 @@
-<nav class="navbar navbar-blue navbar-fixed-top">
+<nav class="navbar navbar-blue navbar-fixed-top" ng-controller="HeaderController as model">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand navbar-blue" href="#/">
@@ -6,14 +6,31 @@
             </a>
         </div>
         <p class="navbar-text pull-right">
-            <a ng-click="model.login()" class="navbar-link">
+        <div ng-show="currentUser">
+            <a href="#/user" class="navbar-link">
                     <span class="pull-right navbar-blue glyphicon glyphicon-log-in">
+                        Welcome {{currentUser.username}}
                     </span>
             </a>
             <a ng-click="model.logout()" class="navbar-link">
                     <span class="pull-right navbar-blue glyphicon glyphicon-log-out">
+                        Logout
                     </span>
             </a>
+        </div>
+        <div ng-show="!currentUser">
+            <a href="#/login" class="navbar-link">
+                    <span class="pull-right navbar-blue glyphicon glyphicon-log-in">
+                        Login
+                    </span>
+            </a>
+            <a href="#/register" class="navbar-link">
+                    <span class="pull-right navbar-blue glyphicon glyphicon-log-out">
+                        Register
+                    </span>
+            </a>
+        </div>
+
         </p>
     </div>
 </nav>

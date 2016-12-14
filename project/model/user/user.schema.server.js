@@ -12,7 +12,7 @@ module.exports = function () {
             lastName: String,
             email: String,
             phone: String,
-            favoriteMovies: [{type: mongoose.Schema.Types.ObjectId, ref:'MovieModel'}],
+            favoriteMovies: [String],
             followers: [{type: mongoose.Schema.Types.ObjectId, ref:'UserModel'}],
             following: [{type: mongoose.Schema.Types.ObjectId, ref:'UserModel'}],
             role: {type: String, enum: ['general', 'critic'], default: 'general'},

@@ -11,19 +11,33 @@
 
         var vm = this;
 
-        vm.toggleMenu = toggleMenu;
         vm.logout = logout;
         vm.home = home;
         vm.login = login;
 
         function init() {
-
+            UserService
+                .getCurrentUser()
+                .then(function (response) {
+                    var user = response.data;
+                    if (user) {
+                        vm.user = user;
+                        UserService
+                            .findUserById(vm.user._id)
+                            .then(function (response) {
+                                if (response.data) {
+                                    vm.user = response.data;
+                                    $location.url("/user");
+                                }
+                            });
+                    }
+                });
         }
 
         init();
 
-        function toggleMenu() {
-            $("#wrapper").toggleClass("toggled");
+        function login() {
+            $location.url("#/login");
         }
 
         function logout() {
@@ -31,6 +45,7 @@
                 .logout()
                 .then(function () {
                     UserService.setCurrentUser(null);
+                    $location.url("/");
                 });
         }
 

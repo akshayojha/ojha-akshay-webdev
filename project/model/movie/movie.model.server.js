@@ -17,12 +17,12 @@ module.exports = function() {
     var model = {};
 
     function addMovie(movie) {
-        movie.movieId = movie.id.toString();
+        movie.movieId = movie.imdbID;
         return MovieModel.create(movie);
     }
     
-    function findMovieById(movieId) {
-        return MovieModel.findById(movieId);
+    function findMovieById(id) {
+        return MovieModel.findById(id);
     }
 
     function setModel(_model) {

@@ -11,7 +11,7 @@ module.exports = function () {
             movieId: {type: String, required: true},
             _movie: {type: mongoose.Schema.Types.ObjectId, ref: 'MovieModel'},
             _user: {type: mongoose.Schema.Types.ObjectId, ref: 'UserModel'},
-            reaction: {type: String, enum: ['Neutral', 'Recommended', 'Negative'], required: true}
+            description:""
         }, {
             collection: "review"
         });

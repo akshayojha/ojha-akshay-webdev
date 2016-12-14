@@ -14,8 +14,10 @@ module.exports = function() {
         findUserByUsername: findUserByUsername,
         updateUser: updateUser,
         deleteUser: deleteUser,
-        toggleLike: toggleLike,
-        toggleFollowing: toggleFollowing,
+        likeMovie: likeMovie,
+        unlikeMovie: unlikeMovie,
+        followUser: followUser,
+        unfollowUser: unfollowUser,
         findUserByEmail: findUserByEmail,
         setModel: setModel
     };
@@ -31,39 +33,23 @@ module.exports = function() {
         return UserModel.findOne({email: email});
     }
 
-    function toggleLike(userId, mid) {
-        return UserModel
-            .findById(userId)
-            .then(function (user) {
-                var movies = user.favoriteMovies;
-                if (movies.indexOf(mid) > -1){
-                    return UserModel.update({_id:userId}, {$pullAll:{favoriteMovies:mid}});
-                } else {
-                    return UserModel.update({_id:userId}, {$addToSet:{favoriteMovies:mid}});
-                }
-            }, function(error){
-                console.log("Error: "+error);
-            });
+    function unlikeMovie(userId, mid) {
+        return UserModel.update({_id:userId}, {$pullAll:{favoriteMovies:[mid]}});
+    }
+    function likeMovie(userId, mid) {
+        return UserModel.update({_id:userId}, {$addToSet:{favoriteMovies:mid}});
     }
 
-    function toggleFollowing(userId, followingUserId) {
-        return UserModel
-            .findById(userId)
-            .then(function (user) {
-                var followers = user.followers;
-                if (followers.indexOf(followingUserId) > -1){
-                    return UserModel.update({_id:userId}, {$pullAll:{following:followingUserId}});
-                } else {
-                    return UserModel.update({_id:userId}, {$addToSet:{following:followingUserId}});
-                }
-            }, function(error){
-                console.log("Error: "+error);
-            });
+    function followUser(userId, followingUserId) {
+        return UserModel.update({_id:userId}, {$pullAll:{following:followingUserId}});
+    }
+
+    function unfollowUser(userId, followingUserId) {
+        return UserModel.update({_id:userId}, {$addToSet:{following:followingUserId}});
     }
 
     function createUser(user) {
-        console.log("rc");
-        console.log(user);
+
         return UserModel
             .create(user);
     }

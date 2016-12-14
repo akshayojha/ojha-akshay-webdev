@@ -29,6 +29,11 @@ module.exports = function(app, model) {
     passport.deserializeUser(deserializeUser);
 
     app.get('/ppt/loggedIn', loggedIn);
+    app.put('/ppt/user/:uid/movie/:mid/unlikeMovie', unlikeMovie);
+    app.put('/ppt/user/:uid/movie/:mid/likeMovie', likeMovie);
+    app.put('/ppt/user/:uid/unfollow/:followingUserId/unfollowUser', unfollowUser);
+    app.put('/ppt/user/:uid/follow/:followingUserId/followUser', followUser);
+
 
     app.post("/ppt/user", createUser);
     app.get("/ppt/user", findUser);
@@ -254,5 +259,65 @@ module.exports = function(app, model) {
                 function(error){
                     console.log(error);
                 });
+    }
+
+    function likeMovie(req, res) {
+        var userId = req.params['uid'];
+        var mid = req.params['mid'];
+        userModel
+            .likeMovie(userId, mid)
+            .then(function (stats) {
+                res.sendStatus(200);
+            }, function (err) {
+                res.status(400).send(err);
+            });
+    };
+
+
+    function unlikeMovie(req, res) {
+        var userId = req.params['uid'];
+        var mid = req.params['mid'];
+        userModel
+            .unlikeMovie(userId, mid)
+            .then(function (stats) {
+                res.sendStatus(200);
+            }, function (err) {
+                res.status(400).send(err);
+            });
+    };
+    function followUser(req, res) {
+        var userId = req.params['uid'];
+        var followId = req.params['followingId'];
+        userModel
+            .followUser(userId, followId)
+            .then(function (stats) {
+                return userModel
+                    .followUser(followId, userId);
+            }, function (err) {
+                res.status(400).send(err);
+            })
+            .then(function (stats) {
+                res.sendStatus(200);
+            }, function (err) {
+                res.status(400).send(err);
+            });
+    }
+
+    function unfollowUser(req, res) {
+        var userId = req.params['uid'];
+        var unfollowId = req.params['followingId'];
+        userModel
+            .unfollowUser(userId, unfollowId)
+            .then(function (stats) {
+                return userModel
+                    .unfollowUser(unfollowId, userId);
+            }, function (err) {
+                res.status(400).send(err);
+            })
+            .then(function (stats) {
+                res.sendStatus(200);
+            }, function (err) {
+                res.status(400).send(err);
+            });
     }
 };

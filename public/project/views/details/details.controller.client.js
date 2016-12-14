@@ -5,7 +5,6 @@
         .controller('DetailController', DetailController);
     
     function DetailController($routeParams, MovieService, ReviewService, UserService) {
-        console.log("Details conttolee");
         var vm = this;
         vm.movieId = $routeParams.movieId;
 
@@ -14,14 +13,16 @@
         vm.updateReview = updateReview;
         vm.deleteReview = deleteReview;
         vm.cancelReview = cancelReview;
-        vm.toggleLike = toggleLike ;
+        vm.toggleLike = toggleLike;
+        vm.liked = false;
+
 
         function init() {
 
             vm.review = {
                 title: "",
                 timestamp: Date.now(),
-                reaction: 'Neutral'
+                description: ""
             };
 
             UserService
@@ -39,24 +40,16 @@
                         });
                     }
                 });
-
-            getMovieStats();
+            for(var i = 0; vm.user && i<vm.user.favoriteMovies.length; ++i) {
+                if(vm.user.favoriteMovies[i] === vm.movieId) {
+                    vm.liked = true;
+                }
+            }
             getMovieDetails();
         }
 
         if (vm.movieId) {
-            console.log(vm.movieId);
             init();
-        }
-
-        function getMovieStats() {
-            vm.likes = 0;
-            vm.reviewCount = 0;
-            if(vm.likes)
-                vm.likes = vm.likes.length;
-            if(vm.reviews)
-                vm.reviewCount = vm.reviews.length;
-
         }
 
         function getMovieDetails() {
@@ -64,10 +57,8 @@
                 .searchMovieById(vm.movieId)
                 .then(function (response) {
                     var movie = response.data;
-                    console.log(movie);
                     vm.movie = movie;
                     vm.Actors = movie.Actors.split(',');
-                    console.log(response.data);
                     findAllReviewsForMovieId();
                 });
         }
@@ -78,29 +69,33 @@
                 .then(function (response) {
                     if (response.data) {
                         vm.reviews = response.data;
+                        findUserByReviewUserId();
                     } else {
-                        console.log("SDa");
 
                     }
                 });
             }
 
         function addReview(review) {
-            ReviewService
-                .addReview(vm.user._id, vm.movieId, review)
-                .then(function (response) {
-                    if (response.data) {
-                        vm.reviews.push(response.data);
-                        getMovieStats();
-                        return MovieService.addMovie(vm.movie);
-                    }
-                }, function (err) {
-                    console.log(err);
-                })
-                .then(function (response) {
-                }, function (error) {
-                    console.log(error);
-                });
+            if (vm.user && vm.user.role === 'critic') {
+                ReviewService
+                    .addReview(vm.user._id, vm.movieId, review)
+                    .then(function (response) {
+                        if (response.data) {
+                            vm.reviews.push(response.data);
+                            return MovieService.addMovie(vm.movie);
+                        }
+                    }, function (err) {
+                        console.log(err);
+                    })
+                    .then(function (response) {
+                        findUserByReviewUserId();
+                    }, function (error) {
+                        console.log(error);
+                    });
+            } else {
+                alert("You need to login as Critic to submit review");
+            }
         }
 
         function selectReview(index) {
@@ -124,22 +119,27 @@
                     vm.reviews[vm.selectedIndex] = review;
                     vm.selectedIndex = -1;
                     vm.review = {};
-                    getMovieStats();
+                    findUserByReviewUserId();
+
                 }, function (err) {
                     console.log(err);
                 });
         }
 
         function deleteReview(index) {
-            var reviewId = vm.reviews[index]._id;
-            ReviewService
-                .deleteReview(reviewId)
-                .then(function (response) {
-                    vm.reviews.splice(index, 1);
-                    vm.selectedIndex = -1;
-                    vm.review = {};
-                }, function (err) {
-                });
+            if (vm.user && vm.user === 'critic') {
+                var reviewId = vm.reviews[index]._id;
+                ReviewService
+                    .deleteReview(reviewId)
+                    .then(function (response) {
+                        vm.reviews.splice(index, 1);
+                        vm.selectedIndex = -1;
+                        vm.review = {};
+                    }, function (err) {
+                    });
+            } else {
+                alert("Please login to modify existing reviews");
+            }
         }
 
         function cancelReview() {
@@ -148,20 +148,47 @@
 
 
         function toggleLike() {
-            UserService
-                .toggleLike(vm.user._id, vm.movieId)
-                .then(function (response) {
-                    var status = response.data;
-                    console.log(status);
-                    vm.isLiked = true;
-                    return MovieService.addMovie(vm.movie);
-                }, function (err) {
-                })
-                .then(function (response) {
-                    console.log(response);
-                }, function (err) {
-                    console.log(err);
-                });
+            if(vm.liked) {
+                console.log("liking");
+                UserService
+                    .likeMovie(vm.user._id, vm.movieId)
+                    .then(function (response) {
+                        return MovieService.addMovie(vm.movie);
+                    }, function (err) {
+                    })
+                    .then(function (response) {
+                        vm.liked = false;
+                    }, function (err) {
+                        console.log(err);
+                    });
+            }else {
+
+                console.log("Unliking");
+                UserService
+                    .unlikeMovie(vm.user._id, vm.movieId)
+                    .then(function (response) {
+                        return MovieService.addMovie(vm.movie);
+                    }, function (err) {
+                    })
+                    .then(function (response) {
+                        vm.liked = true;
+                        console.log(vm.liked);
+                    }, function (err) {
+                        console.log(err);
+                    });
+
+            }
+        }
+
+        function findUserByReviewUserId() {
+            vm.reviews.forEach(function (element, index, array) {
+                UserService.findUserById(vm.reviews[index]._user)
+                    .then(function (response) {
+                        if (response.data) {
+                            vm.reviews[index].username = response.data.username;
+                        }
+                    });
+            });
         }
     }
 

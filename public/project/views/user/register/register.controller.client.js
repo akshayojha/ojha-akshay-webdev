@@ -17,15 +17,13 @@
                         var user = response.data;
                         $rootScope.currentUser = user;
                         console.log(user);
-                        console.log("sadsadasd");
                         $location.url("/user");
-
                     }, function (error) {
-                        console.log("Error creating new user");
+                        alert("Username already exists!");
                     });
             }
         } else {
-            vm.alert("Error invalid username entered");
+            alert("Error invalid username entered");
         }
     }
 
