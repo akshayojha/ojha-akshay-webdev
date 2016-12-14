@@ -7,7 +7,7 @@
             .module("PPTApp")
             .controller("ProfileController", ProfileController);
 
-    function ProfileController($location, $routeParams, UserService, $rootScope, ReviewService) {
+    function ProfileController($location, UserService, $rootScope) {
         var vm = this;
         vm.updateUser = updateUser;
         vm.logout = logout;
@@ -30,12 +30,12 @@
             if (user) {
                 UserService.updateUser(vm.userId, user)
                     .then(function (response) {
-                        console.log("Updated");
+                        alert("Updated information successfully");
                     }, function (error) {
-                        console.log("Error: cant update the user");
+                        alert("Error: cant update the user");
                     });
             } else {
-                console.log("Error Unable to update user information");
+                alert("Error Unable to update user information");
             }
         }
 
@@ -52,7 +52,7 @@
                 .logout()
                 .success(function () {
                     UserService.setCurrentUser(null);
-                    $location.url("/login");
+                    $location.url("/search");
                 });
         }
 }})();

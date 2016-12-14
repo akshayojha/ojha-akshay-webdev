@@ -15,7 +15,7 @@ module.exports = function () {
             favoriteMovies: [String],
             followers: [{type: mongoose.Schema.Types.ObjectId, ref:'UserModel'}],
             following: [{type: mongoose.Schema.Types.ObjectId, ref:'UserModel'}],
-            role: {type: String, enum: ['general', 'critic'], default: 'general'},
+            role: {type:String, default:'general'},
             dateCreated: Date
         }, {
             collection:"user"

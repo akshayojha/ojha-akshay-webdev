@@ -11,7 +11,6 @@ module.exports = function(app, model) {
 
     var LocalStrategy    = require('passport-local').Strategy;
 
-    var movieModel = model.movieModel;
     var userModel = model.userModel;
 
     app.use(session({
@@ -31,14 +30,16 @@ module.exports = function(app, model) {
     app.get('/ppt/loggedIn', loggedIn);
     app.put('/ppt/user/:uid/movie/:mid/unlikeMovie', unlikeMovie);
     app.put('/ppt/user/:uid/movie/:mid/likeMovie', likeMovie);
-    app.put('/ppt/user/:uid/unfollow/:followingUserId/unfollowUser', unfollowUser);
-    app.put('/ppt/user/:uid/follow/:followingUserId/followUser', followUser);
-
+    app.put('/ppt/user/:uid/unfollow/:followingUserId', unfollowUser);
+    app.put('/ppt/user/:uid/follow/:followingUserId', followUser);
+    app.get('/ppt/user/:uid/following', findAllFollowingUsers);
+    app.get('/ppt/user/:uid/followers', findAllFollowers);
+    app.get('/ppt/user/:uid/favorites', findAllLikedMovies);
 
     app.post("/ppt/user", createUser);
     app.get("/ppt/user", findUser);
     app.get("/ppt/user/:userID", findUserByID);
-    app.put("/ppt/user/:userID", loggedInAndSelf, updateUser);
+    app.put("/ppt/user/:userID", updateUser);
 
     app.delete("/ppt/user/:userID", deleteUser);
     app.post('/ppt/login', passport.authenticate('local'), login);
@@ -48,20 +49,62 @@ module.exports = function(app, model) {
     app.get('/ppt/user/:uid/follows', getFollowers);
 
 
-    function loggedInAndSelf(req, res, next) {
-        var loggedIn = req.isAuthenticated();
-        var userId = req.params.uid;
-        var self = userId == req.user._id;
-        if(loggedIn && self){
-            next();
-        } else{
-            send.sendStatus(400).message("You are not authorized to perform this action.");
-        }
+    function findAllFollowingUsers(req, res) {
+        var userId = req.params['uid'];
+        userModel
+            .findUserById(userId)
+            .then(function (user) {
+                return userModel
+                    .findFollowing(user.following);
+            }, function (err) {
+                res.status(400).send(err);
+            })
+            .then(function (users) {
+                res.json(users);
+            }, function (err) {
+                res.status(400).send(err);
+            });
     }
+
+    function findAllFollowers(req, res) {
+        var userId = req.params['uid'];
+        userModel
+            .findUserById(userId)
+            .then(function (user) {
+                return userModel
+                    .findFollowers(user.followers);
+            }, function (err) {
+                res.status(400).send(err);
+            })
+            .then(function (users) {
+                res.json(users);
+            }, function (err) {
+                res.status(400).send(err);
+            });
+    }
+
+    function findAllLikedMovies(req, res) {
+        var userId = req.params['uid'];
+        userModel
+            .findUserById(userId)
+            .then(function (user) {
+                return model.movieModel
+                    .findFavoriteMovies(user.favoriteMovies);
+            }, function (err) {
+                res.status(400).send(err);
+            })
+            .then(function (movies) {
+                res.json(movies);
+            }, function (err) {
+                res.status(400).send(err);
+            });
+    }
+
     function serializeUser(user, done) {
         done(null, user);
     }
     function loggedIn(req, res) {
+        console.log("thihs is causing problems");
         res.send(req.isAuthenticated() ? req.user : null);
     }
     function deserializeUser(user, done) {
@@ -127,6 +170,7 @@ module.exports = function(app, model) {
 
     function findUserByID(req, res) {
         var id = req.params.userID;
+        console.log(id);
         model
             .userModel
             .findUserById(id)
@@ -187,7 +231,9 @@ module.exports = function(app, model) {
             .updateUser(userID, user)
             .then(
                 function (resp) {
-                    res.sendStatus(200);
+                    console.log("Rer");
+                    console.log(user);
+                    res.send(user).sendStatus(200);
                 }, function (error) {
                     res.sendStatus(400);
                 }

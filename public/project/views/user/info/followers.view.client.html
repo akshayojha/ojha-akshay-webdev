@@ -1,0 +1,24 @@
+<h1 class="page-header less-top-margin">{{model.navUser.username}}'s Profile </h1>
+
+<h1 class="page-header less-top-margin">Followers</h1>
+
+<div class="row" ng-hide="model.navUser.following.length > 0">
+    <div class="alert alert-info alert-box" role="alert">
+        <b>            Not following anyone yet.
+        </b>
+    </div>
+</div>
+
+<div ng-repeat="user in model.users">
+    <div class="media">
+
+        <div class="media-body">
+            <h3 class="media-heading">
+                <a href="profile.reviews({userId: user._id})">
+                    {{user.firstName + " " + user.lastName}}
+                </a>
+            </h3>
+        </div>
+    </div>
+    <hr>
+</div>

@@ -16,6 +16,16 @@
                 controller: "HomeController",
                 controllerAs: "model"
             })
+            .when("/search", {
+                templateUrl: "views/home/home.view.client.html",
+                controller: "HomeController",
+                controllerAs: "model"
+            })
+            .when("/search/:title", {
+                templateUrl: "views/home/home.view.client.html",
+                controller: "HomeController",
+                controllerAs: "model"
+            })
             .when("/login", {
                 templateUrl: "views/user/login/login.view.client.html",
                 controller: "LoginController",
@@ -34,12 +44,6 @@
 
             })
             .when("/user/:uid", {
-                templateUrl: "views/user/critic-profile.view.client.html",
-                controller: "CriticProfileController",
-                controllerAs: "model",
-                resolve: {isCritic: isCritic}
-            })
-            .when("/user/:uid", {
                 templateUrl: "views/user/profile.view.client.html",
                 controller: "ProfileController",
                 controllerAs: "model",
@@ -48,43 +52,34 @@
             .when("/details/:movieId", {
                 templateUrl: "views/details/details.view.client.html",
                 controller: "DetailController",
-                controllerAs: "model",
+                controllerAs: "model"
+                //resolve: {validateLogin: validateLogin}
+            })
+            .when("/details/:movieId/:title", {
+                templateUrl: "views/details/details.view.client.html",
+                controller: "DetailController",
+                controllerAs: "model"
                 //resolve: {validateLogin: validateLogin}
             })
             .when("/user/:uid/followers", {
-                templateUrl: "views/user/followers.view.client.html",
+                templateUrl: "views/user/info/followers.view.client.html",
                 controller: "FollowersController",
-                controllerAs: "model",
-                resolve: {validateLogin: validateLogin}
-
+                controllerAs: "model"
             })
             .when("/user/:uid/following", {
-                templateUrl: "views/user/followers.view.client.html",
-                controller: "FollowingController",
-                controllerAs: "model",
-                resolve: {validateLogin: validateLogin}
-
-            })
-            .when("/user/:uid/reviews", {
-                templateUrl: "views/user/reviews.view.client.html",
-                controller: "ReviewsController",
-                controllerAs: "model",
-                resolve: {isCritic: isCritic}
-
+            templateUrl: "views/user/info/following.view.client.html",
+            controller: "FollowingController",
+            controllerAs: "model"
             })
             .when("/user/:uid/favorites", {
-                templateUrl: "views/user/favorites.view.client.html",
+                templateUrl: "views/user/info/favorites.view.client.html",
                 controller: "FavoritesController",
-                controllerAs: "model",
-                resolve: {validateLogin: validateLogin}
-
+                controllerAs: "model"
             })
-            .when("/user/:uid/movie/:mid", {
-                templateUrl: "views/user/favorites.view.client.html",
-                controller: "FavoritesController",
-                controllerAs: "model",
-                resolve: {validateLogin: validateLogin}
-
+            .when("/user/:uid/reviews", {
+                templateUrl: "views/user/reviews/reviews.view.client.html",
+                controller: "ReviewsController",
+                controllerAs: "model"
             })
             .otherwise({
                 redirectTo: "/login"
@@ -105,34 +100,6 @@
                         $location.url("/login");
                     }
                 });
-            return deferred.promise;
-        }
-
-        function isCritic(UserService, $q, $location, $rootScope) {
-            var deferred = $q.defer();
-
-            UserService
-                .isCritic()
-                .then(function (response) {
-                    var user = response.data;
-
-                    if (user) {
-                        if (user && user.role == 'critic') {
-                            $rootScope.currentUser = user;
-                            deferred.resolve();
-                        }
-                        else {
-                            $rootScope.currentUser = null;
-                            $location.url("/login");
-                            deferred.reject();
-                        }
-                    }
-                    else {
-                        deferred.reject();
-                        $location.url("/login");
-                    }
-                });
-
             return deferred.promise;
         }
     }

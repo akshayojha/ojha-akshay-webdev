@@ -7,6 +7,7 @@
     function DetailController($routeParams, MovieService, ReviewService, UserService) {
         var vm = this;
         vm.movieId = $routeParams.movieId;
+        vm.title = $routeParams.title;
 
         vm.addReview = addReview;
         vm.selectReview = selectReview;
@@ -15,7 +16,6 @@
         vm.cancelReview = cancelReview;
         vm.toggleLike = toggleLike;
         vm.liked = false;
-
 
         function init() {
 
@@ -37,7 +37,11 @@
                             if (response.data) {
                                 vm.user = response.data;
                             }
-                        });
+                                console.log("asdasd");
+
+                            }, function (err) {
+                                console.log(err);
+                            });
                     }
                 });
             for(var i = 0; vm.user && i<vm.user.favoriteMovies.length; ++i) {
@@ -83,13 +87,15 @@
                     .then(function (response) {
                         if (response.data) {
                             vm.reviews.push(response.data);
+                            console.log(response.data);
+                            findUserByReviewUserId();
                             return MovieService.addMovie(vm.movie);
                         }
                     }, function (err) {
                         console.log(err);
                     })
                     .then(function (response) {
-                        findUserByReviewUserId();
+                        console.log("worked");
                     }, function (error) {
                         console.log(error);
                     });
@@ -127,7 +133,7 @@
         }
 
         function deleteReview(index) {
-            if (vm.user && vm.user === 'critic') {
+            if (vm.user && vm.user.role === 'critic') {
                 var reviewId = vm.reviews[index]._id;
                 ReviewService
                     .deleteReview(reviewId)
@@ -185,6 +191,7 @@
                 UserService.findUserById(vm.reviews[index]._user)
                     .then(function (response) {
                         if (response.data) {
+                             console.log(response.data.username);
                             vm.reviews[index].username = response.data.username;
                         }
                     });

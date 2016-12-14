@@ -1,0 +1,24 @@
+<h1 class="page-header less-top-margin">{{model.user.username}}'s Profile </h1>
+<h1 class="page-header less-top-margin">Favorites</h1>
+
+<div class="row" ng-hide="model.movies.length > 0">
+    <div class="alert alert-info alert-box" role="alert">
+        <b> No liked Movies yet.</b>
+
+    </div>
+</div>
+
+<div ng-repeat="movie in model.movies">
+    <article class="search-result row" ng-repeat="movie in model.movies">
+        <hr class="colorgraph">
+        <div class="col-xs-12 col-sm-12 col-md-3">
+            <a href="#/details/{{movie.movieId}}" title="{{movie.title}}" class="thumbnail"><img ng-src={{movie.Poster}} alt="No Poster available" /></a>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
+            <h3><a href="#/details/{{movie.imdbID}}" title="">{{movie.title}}</a></h3>
+        </div>
+        <span class="clearfix borda"></span>
+    </article>
+
+    <hr>
+</div>

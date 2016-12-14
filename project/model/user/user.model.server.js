@@ -64,6 +64,8 @@ module.exports = function() {
     }
 
     function updateUser(userId, user) {
+        console.log(user);
+        delete user._id;
         return UserModel
             .update(
                 {

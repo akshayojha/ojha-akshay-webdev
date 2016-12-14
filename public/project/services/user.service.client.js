@@ -6,6 +6,7 @@
 
     function UserService($rootScope, $http) {
 
+
         var api = {
             login: login,
             logout: logout,
@@ -46,7 +47,7 @@
         }
 
         function findFavoriteMovies(userId) {
-            var url = "/ppt/user/" + userId + "/likes";
+            var url = "/ppt/user/" + userId + "/favorites";
             return $http.get(url);
         }
 
@@ -93,6 +94,7 @@
         }
         
         function register(user) {
+            console.log(user);
             var url = "/ppt/register";
             return $http.post(url, user);
         }

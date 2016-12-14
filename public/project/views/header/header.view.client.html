@@ -7,24 +7,24 @@
         </div>
         <p class="navbar-text pull-right">
         <div ng-show="currentUser">
-            <a href="#/user" class="navbar-link">
+            <a href="#/user" class="navbar-brand navbar-blue pull-right">
                     <span class="pull-right navbar-blue glyphicon glyphicon-log-in">
                         Welcome {{currentUser.username}}
                     </span>
             </a>
-            <a ng-click="model.logout()" class="navbar-link">
+            <a ng-click="model.logout()" class="navbar-brand navbar-blue pull-right">
                     <span class="pull-right navbar-blue glyphicon glyphicon-log-out">
                         Logout
                     </span>
             </a>
         </div>
         <div ng-show="!currentUser">
-            <a href="#/login" class="navbar-link">
+            <a href="#/login" class="navbar-brand navbar-blue pull-right">
                     <span class="pull-right navbar-blue glyphicon glyphicon-log-in">
                         Login
                     </span>
             </a>
-            <a href="#/register" class="navbar-link">
+            <a href="#/register" class="navbar-brand navbar-blue pull-right">
                     <span class="pull-right navbar-blue glyphicon glyphicon-log-out">
                         Register
                     </span>

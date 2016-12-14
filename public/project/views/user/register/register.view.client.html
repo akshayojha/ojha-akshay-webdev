@@ -35,17 +35,14 @@
                                                 </div>
                                         </div>
                                 </div>
-                            <div class="btn-group" data-toggle="buttons-radio">
-                                <button ng-model="model.user.role"class="btn btn-default" value="general" type="button" >General</button>
-                                <button class="btn btn-default" ng-model="model.user.role"value="critic" type="button" >Critic</button>
-                            </div>
-
 
                                 <hr class="colorgraph">
                                 <div class="row">
-                                        <div class="col-xs-12 col-md-6"><input type="submit" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="7" ng-click="model.register(model.user)"></div>
-                                        <div class="col-xs-12 col-md-6"><a href="#/" class="btn btn-success btn-block btn-lg">Cancel</a></div>
+                                    <div class="col-xs-12 col-md-4"><input type="submit" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="7" ng-click="model.register(model.user)"></div>
+                                    <div class="col-xs-12 col-md-4"><input type="submit" value="Register as Critic" class="btn btn-primary btn-block btn-lg" tabindex="7" ng-click="model.registerCritic(model.user)"></div>
+                                    <div class="col-xs-12 col-md-4"><a href="#/" class="btn btn-success btn-block btn-lg">Cancel</a></div>
                                 </div>
+
                         </form>
                 </div>
         </div>

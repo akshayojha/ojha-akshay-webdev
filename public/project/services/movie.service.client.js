@@ -12,9 +12,14 @@
             searchMovieById: searchMovieByImdbID,
             addMovie: addMovie,
             searchMovieByTitle: searchMovieByTitle,
-            getMovieDetailsById:getMovieDetailsById
+            getMovieDetailsById:getMovieDetailsById,
+            findMovieById: findMovieById
         };
         return api;
+        function findMovieById(mid) {
+            var url = "/ppt/movie/" + mid;
+            return $http.get(url);
+        }
         function addMovie(movie) {
             return $http.post(baseUrl, movie);
         }

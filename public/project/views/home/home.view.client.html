@@ -1,26 +1,26 @@
 <div class="container-fluid">
+
     <h1>Popcorn Time</h1>
     <div class="input-group">
-        <input ng-model="model.title" type="text" class="form-control" placeholder="Search for...">
+        <input ng-model="model.title" type="text" class="form-control" placeholder="Search for..." value="{{model.title}}">
         <span class="input-group-btn">
                 <button ng-click="model.searchMovieByTitle(model.title)" class="btn btn-default" type="button">Go!</button>
             </span>
     </div>
 
-    <section class="col-xs-12 col-sm-6 col-md-12">
         <article class="search-result row" ng-repeat="movie in model.movies">
             <hr class="colorgraph">
-            <div class="col-xs-12 col-sm-12 col-md-3">
-                <a href="#" title="{{movie.Title}}" class="thumbnail"><img ng-src={{movie.Poster}} alt="No Poster available" /></a>
-            </div>
+
             <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
-                <h3><a href="#/details/{{movie.imdbID}}" title="">{{movie.Title}}</a></h3>
+                <h3><a href="#/details/{{movie.imdbID}}/{{model.title}}" title="">{{movie.Title}}</a></h3>
                 <ul class="meta-search">
                     <li><i class="glyphicon glyphicon-calendar"></i> <span>{{movie.Year}}</span></li>
                     <li><i class="glyphicon glyphicon-tags"></i> <span>{{movie.Type}}</span></li>
                 </ul>
             </div>
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                <a href="#/details/{{movie.imdbID}}/{{model.title}}" title="{{movie.Title}}" class="thumbnail"><img ng-src={{movie.Poster}} alt="No Poster available" /></a>
+            </div>
             <span class="clearfix borda"></span>
         </article>
-    </section>
 </div>

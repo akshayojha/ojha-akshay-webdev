@@ -21,20 +21,16 @@
                        value="{{model.user.lastName}}">
             </div>
         </form>
-
+    <a class="btn btn-primary btn-block"
+       ng-click="model.updateUser(model.user)">Update</a>
         <a class="btn btn-danger  btn-block"
            ng-click="model.logout()">Logout</a>
         <a class="btn btn-primary btn-block"
-           ng-click="model.getFollowers()">Followers</a>
+           href="#/user/{{model.user._id}}/followers/">Followers</a>
+    <a class="btn btn-primary btn-block"
+       href="#/user/{{model.user._id}}/following/">Following</a>
+    <a class="btn btn-primary btn-block"
+       href="#/user/{{model.user._id}}/favorites/">Favorites</a>
         <a ng-if="currentUser.role === 'critic'" class="btn btn-primary btn-block"
-           ng-click="model.getReviews()">Reviews</a>
-        <a class="btn btn-primary btn-block"
-           ng-click="model.getLikes()">Likes</a>
+           href="#/user/{{model.user._id}}/reviews/">Reviews</a>
 </div>
-
-<nav class="navbar navbar-blue navbar-fixed-bottom">
-
-    <div class="navbar-text pull-right">
-        <a class="navbar-link navbar-blue" ng-click="model.profile()"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
-    </div>
-</nav>

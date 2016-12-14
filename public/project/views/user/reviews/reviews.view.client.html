@@ -1,0 +1,28 @@
+<h1 class="page-header less-top-margin">Reviews</h1>
+
+<div class="row" ng-hide="model.reviews.length > 0">
+    <div class="alert alert-info alert-box" role="alert">
+        <div ng-show="model.user._id == model.navUserId">
+            <b> You have not posted any reviews yet </b>
+
+        </div>
+        <div ng-hide="model.user._id == model.navUserId">
+            <b>User has not posted any reviews yet</b>
+        </div>
+    </div>
+</div>
+
+<div ng-repeat="review in model.reviews">
+    <div class="media">
+        <a class="pull-left" href="">
+            <img class="media-object media-object-movie thumbnail" ng-src={{review.movie.imageUrl}} alt="">
+        </a>
+        <h3 ng-repeat="review in model.reviews">
+            <i class="fa fa-comment">
+                {{review.username}} said on {{review.timestamp | date:"MM/dd/yyyy 'at' h:mma"}}:
+            </i>
+            <small ng-click="">{{review.title}}</small>
+            <p>{{review.description}}</p>
+        </h3>
+    </div>
+</div>

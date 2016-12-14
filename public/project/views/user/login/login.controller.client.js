@@ -23,7 +23,7 @@
                         var user = response.data;
                         $rootScope.currentUser = user;
                         console.log(user);
-                        $location.url("/user");
+                        $location.url("/search");
                     }, function (error) {
                         console.log("Unable to login");
                     });

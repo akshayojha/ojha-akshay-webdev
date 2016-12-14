@@ -9,20 +9,24 @@ module.exports = function() {
     var api = {
         findMovieById:findMovieById,
         setModel: setModel,
+        findFavoriteMovies:findFavoriteMovies,
         addMovie:addMovie
     };
-
+    function findFavoriteMovies(movieIds) {
+        return MovieModel.find({movieId: {$in: movieIds}});
+    }
     return api;
 
     var model = {};
 
     function addMovie(movie) {
-        movie.movieId = movie.imdbID;
+        movie.movieId = movie.imdbID.toString();
+        console.log("Creatred");
         return MovieModel.create(movie);
     }
     
-    function findMovieById(id) {
-        return MovieModel.findById(id);
+    function findMovieById(movieId) {
+        return MovieModel.findOne({movieId: movieId});
     }
 
     function setModel(_model) {

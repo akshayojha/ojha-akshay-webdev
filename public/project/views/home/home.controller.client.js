@@ -9,12 +9,12 @@
     function HomeController(MovieService, $routeParams, $location) {
         var vm = this;
         vm.searchMovieByTitle = searchMovieByTitle;
-        var title = $routeParams.title;
+        vm.title = $routeParams.title;
 
         function init() {
-            if(title) {
-                $location.path("/search"+title);
-                searchMovieByTitle(title);
+            if(vm.title) {
+                $location.path("/search/"+vm.title);
+                searchMovieByTitle(vm.title);
             }
         }
         init();
@@ -26,6 +26,7 @@
                     vm.movies = result.Search;
                 })
                 .error(function () {
+                    vm.alert = "No results found";
                 })
         }
     }
