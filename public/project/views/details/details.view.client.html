@@ -52,7 +52,8 @@
     <div class="container">
         <div class="row">
             <h3>Write a review</h3>
-            <div ng-if="currentUser.role === 'critic'">
+            <div class="row">
+            <div class="col-lg-4" ng-if="currentUser.role === 'critic'">
             <label for="name">Title</label>
             <input type="text"
                    id="name"
@@ -61,7 +62,7 @@
                    ng-model="model.review.title"
                    value=""/>
             <label for="description">Description</label>
-            <input type="text"
+            <textarea
                    id="description"
                    class="form-control"
                    placeholder="Enter review description"
@@ -69,6 +70,7 @@
                    ng-model="model.review.description"/>
             <button ng-click="model.addReview(model.review)" type="submit" name="say" value="" class="btn btn-primary"><i class="fa fa-reply"></i> Submit</button>
         </div>
+            </div>
             <div ng-hide="currentUser">
                 <p class="text-danger">You need to login as a critic to post reviews</p>
             </div>
@@ -87,8 +89,8 @@
                 </i>
                 <small>{{review.title}}</small>
                 <p>{{review.description}}</p>
-                <div ng-if="currentUser._id === review._user">
-
+                <div class="row">
+                <div  class="col-lg-4" ng-if="currentUser._id === review._user">
                     <label for="name">Title</label>
                     <input type="text"
                            id="name"
@@ -97,7 +99,7 @@
                            ng-model="review.title"
                            value=""/>
                     <label for="description">Description</label>
-                    <input type="text"
+                    <textarea
                            id="description"
                            class="form-control"
                            placeholder="Enter review description"
@@ -106,6 +108,7 @@
                     <button ng-click="model.deleteReview($index)" type="delete" name="say" value="" class="btn btn-danger"><i class="fa"></i> Delete Post</button>
                     <button ng-click="model.updateReview(review)" type="update" name="say" value="" class="btn btn-default"><i class="fa"></i> Update Post</button>
 
+                </div>
                 </div>
 
             </h3>

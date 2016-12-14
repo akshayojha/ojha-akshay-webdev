@@ -13,22 +13,18 @@
                     </span>
         </div>
     </div>
-    <!--<div ng-hide="model.movies.length > 0 ">-->
-        <!--<h2>Search for a movie by title</h2>-->
-    <!--</div>-->
-        <article class="search-result row" ng-repeat="movie in model.movies">
-            <hr class="colorgraph">
+    <article class="search-result row" ng-repeat="movie in model.movies">
+            <hr class="colorgraphSmall">
 
-            <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
-                <h3><a href="#/details/{{movie.imdbID}}/{{model.title}}" title="">{{movie.Title}}</a></h3>
-                <ul class="meta-search">
-                    <li><i class="glyphicon glyphicon-calendar"></i> <span>{{movie.Year}}</span></li>
-                    <li><i class="glyphicon glyphicon-tags"></i> <span>{{movie.Type}}</span></li>
-                </ul>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-3">
-                <a href="#/details/{{movie.imdbID}}/{{model.title}}" title="{{movie.Title}}" class="thumbnail"><img src={{movie.Poster}} alt="Sorry no poster available" /></a>
-            </div>
+                <h3 align="center">
+                    <a href="#/details/{{movie.imdbID}}/{{model.title}}" title="">
+                        {{movie.Title}}
+                    </a>
+                </h3>
+        <a href="#/details/{{movie.imdbID}}/{{model.title}}" title="{{movie.Title}}" class="thumbnail">
+                    <img src={{movie.Poster}} alt="Sorry no poster available" />
+        </a>
+
             <span class="clearfix borda"></span>
-        </article>
+    </article>
 </div>
