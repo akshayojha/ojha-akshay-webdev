@@ -1,4 +1,9 @@
 <h1 class="page-header less-top-margin">{{model.navUser.username}}'s Reviews</h1>
+<div class="row" style="margin-top:20px">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        <h3 class="text-danger" align="center">{{model.alert}}</h3>
+    </div>
+</div>
 <hr class="colorgraph">
 <div class="row" ng-hide="model.reviews.length > 0">
     <div class="alert alert-info alert-box" role="alert">

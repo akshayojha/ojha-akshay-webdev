@@ -53,9 +53,9 @@
                 .then(
                     function (reponse) {
                         vm.following = true;
-                        alert("Added to the list");
+                        vm.alert = "You are now following this user";
                     }, function (erro) {
-                        alert("Cant add to the list");
+                        vm.alert = "Cant follow this user";
                     }
                 )
         }
@@ -66,10 +66,10 @@
                 .then(
                     function (reponse) {
                         vm.following = false;
-                        alert("Removed from the list");
+                        vm.alert = "You are now not following this user";
                     }, function (erro) {
                         console.log(erro);
-                        alert("Cant remove from the list"+erro);
+                        vm.alert ="Cant unfollow this user";
                     }
                 )
         }

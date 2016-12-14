@@ -30,12 +30,12 @@
             if (user) {
                 UserService.updateUser(vm.userId, user)
                     .then(function (response) {
-                        alert("Updated information successfully");
+                        vm.alert ="Updated information successfully";
                     }, function (error) {
-                        alert("Error: cant update the user");
+                        vm.alert ="Error: cant update the user";
                     });
             } else {
-                alert("Error Unable to update user information");
+                vm.alert="Error Unable to update user information";
             }
         }
 
