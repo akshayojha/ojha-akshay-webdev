@@ -23,7 +23,13 @@
             MovieService
                 .searchMovieByTitle(title)
                 .success(function (result) {
-                    vm.movies = result.Search;
+                    if(!result.Search){
+                        vm.alert = "No results found";
+                        vm.movies =null;}
+                    else {
+                        vm.alert = null;
+                        vm.movies = result.Search;
+                    }
                 })
                 .error(function () {
                     vm.alert = "No results found";
