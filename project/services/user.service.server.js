@@ -332,12 +332,12 @@ module.exports = function(app, model) {
     };
     function followUser(req, res) {
         var userId = req.params['uid'];
-        var followId = req.params['followingId'];
+        var followId = req.params['followingUserId'];
         userModel
             .followUser(userId, followId)
             .then(function (stats) {
                 return userModel
-                    .followUser(followId, userId);
+                    .addFollowingUser(followId, userId);
             }, function (err) {
                 res.status(400).send(err);
             })
@@ -350,14 +350,13 @@ module.exports = function(app, model) {
 
     function unfollowUser(req, res) {
         var userId = req.params['uid'];
-        var unfollowId = req.params['followingId'];
-        console.log(userId);
-        console.log(unfollowId);
+        var unfollowId = req.params['followingUserId'];
         userModel
             .unfollowUser(userId, unfollowId)
             .then(function (stats) {
+                console.log("round two");
                 return userModel
-                    .unfollowUser(unfollowId, userId);
+                    .removeFollowingUser(unfollowId, userId);
             }, function (err) {
                 res.status(400).send(err);
             })

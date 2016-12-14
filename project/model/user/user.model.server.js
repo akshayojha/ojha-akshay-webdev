@@ -18,6 +18,8 @@ module.exports = function() {
         unlikeMovie: unlikeMovie,
         followUser: followUser,
         unfollowUser: unfollowUser,
+        removeFollowingUser: removeFollowingUser,
+        addFollowingUser: addFollowingUser,
         findUserByEmail: findUserByEmail,
         setModel: setModel
     };
@@ -41,7 +43,18 @@ module.exports = function() {
     }
 
     function unfollowUser(userId, followingUserId) {
-        return UserModel.update({_id:userId}, {$pullAll:{following:followingUserId}});
+        console.log("Roudn 1 unflolgin");
+        return UserModel.update({_id:userId}, {$pullAll:{following:[followingUserId]}});
+    }
+
+    function removeFollowingUser(userId, followingUserId) {
+        return UserModel.update({_id:userId}, {$pullAll:{followers:[followingUserId]}});
+    }
+
+
+
+    function addFollowingUser(userId, followingUserId) {
+        return UserModel.update({_id:userId}, {$addToSet:{followers:followingUserId}});
     }
 
     function followUser(userId, followingUserId) {

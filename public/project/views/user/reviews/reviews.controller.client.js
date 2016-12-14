@@ -38,6 +38,7 @@
                                     for(var i = 0; vm.user && i<vm.user.following.length; ++i) {
                                         if(vm.user.following[i] === vm.navUserId) {
                                             vm.following = true;
+                                            console.log("mila");
                                         }
                                     }
                                 }
@@ -68,7 +69,8 @@
                         vm.following = false;
                         alert("Removed from the list");
                     }, function (erro) {
-                        alert("Cant remove from the list");
+                        console.log(erro);
+                        alert("Cant remove from the list"+erro);
                     }
                 )
         }
