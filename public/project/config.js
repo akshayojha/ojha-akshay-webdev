@@ -79,7 +79,8 @@
             .when("/user/:uid/reviews", {
                 templateUrl: "views/user/reviews/reviews.view.client.html",
                 controller: "ReviewsController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {validateLogin: validateLogin}
             })
             .otherwise({
                 redirectTo: "/search"
@@ -91,7 +92,7 @@
                 .validateLogin()
                 .then(function (response) {
                     var user = response.data;
-                    if (user) {
+                    if (user != '0') {
                         $rootScope.currentUser = user;
                         deferred.resolve();
                     } else {

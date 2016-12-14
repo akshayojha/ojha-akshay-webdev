@@ -25,8 +25,8 @@
                     }
                 })
                 .then(function (response) {
-                    var reviews = response.data;
-                    if (reviews) {
+                    if (response && vm.user) {
+                        var reviews = response.data;
                         vm.reviews = reviews;
 
                         UserService
@@ -38,7 +38,6 @@
                                     for(var i = 0; vm.user && i<vm.user.following.length; ++i) {
                                         if(vm.user.following[i] === vm.navUserId) {
                                             vm.following = true;
-                                            console.log("mila");
                                         }
                                     }
                                 }

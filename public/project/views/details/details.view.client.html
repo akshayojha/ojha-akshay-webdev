@@ -1,73 +1,52 @@
 <div class="container-fluid">
-    <h1>
-        <a href="#/search/{{model.title}}">
+    <div class="page">
+        <div class="content">
+            <h1>
+                <a href="#/search/{{model.title}}">
             <span class="glyphicon glyphicon-chevron-left">
             </span>
-        </a>
-        {{model.movie.Title}}
-    </h1>
-    <hr class="colorgraph">
-
-    <div class="row">
-            <div class="lib-panel">
-                <div class="row box-shadow">
-                    <div class="col-md-6">
+                </a>
+                {{model.movie.Title}}
+            </h1>
+            <hr class="colorgraph">
+            <div class="row">
+                <div class="col-md-6">
+                    <figure class="movie-poster">
                         <img src="{{model.movie.Poster}}" onerror="this.src='http://shop55.org/wp-content/uploads/2014/02/no-image.jpeg'" height="300px">
+                    </figure>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="movie-title">{{movie.Title}}</h2>
+                    <div class="movie-summary">
+                        <p>{{model.movie.Plot}}</p>
                     </div>
-                    <div class="col-md-6">
-                            <div>
-                                <h3>Directed By: {{model.movie.Director}}
-                                </h3></div>
+                    <ul class="movie-meta">
+                        <li><strong>Rating:</strong>
+                            <div class="star-rating" title="Rated {{model.movie.imdbRating}} out of 5">
+                                <span style="width:80%"><strong class="rating">{{model.movie.imdbRating}}</strong> out of 5</span></div>
+                        </li>
+                        <li><strong>Length:</strong> {{model.movie.Runtime}}</li>
+                        <li><strong>Premiere:</strong> {{model.movie.Released}}</li>
+                        <li><strong>Category:</strong> {{model.movie.Genre}}</li>
+                    </ul>
 
-                            <div>
-                                <h3>Ratings: {{model.movie.imdbRating}}</h3>
-                            </div>
+                    <ul class="starring">
+                        <li><strong>Directors:</strong> {{model.movie.Director}}</li>
+                        <li><strong>Writers:</strong> {{model.movie.Writer}}</li>
+                        <li><strong>Stars:</strong>    <ul>
+                            <li ng-repeat="actor in model.Actors">
+                                {{actor}}
+                            </li>
+                        </ul></li>
+                    </ul>
+                </div>
+            </div> <!-- .row -->
+            <div class="entry-content">
 
-                            <div>
-                                <h3>Released: {{model.movie.Released}}</h3>
-                            </div>
-                            <div>
-                                <h3>Plot:</h3> <h4>{{model.movie.Plot}}</h4>
-                            </div>
-                            <div>
-                                <h3>Actors:</h3>
-                                <ul>
-                                    <li ng-repeat="actor in model.Actors">
-                                        <h4>{{actor}}</h4>
-                                    </li>
-                                </ul>
-                            </div>
-                    </div>
-                    <!--<div class="container" ng-if="!currentUser">-->
-                        <!--<a href="#/login">-->
-                <!--<span class="glyphicon glyphicon-thumbs-up">-->
-                <!--Please login to like the movie-->
-            <!--</span>-->
-                        <!--</a>-->
-                    <!--</div>-->
-                    <!--<div class="container" ng-if="currentUser && model.liked">-->
-                        <!--<a ng-click="model.toggleLike()">-->
-            <!--<span style="background-color: #2b542c" class="glyphicon glyphicon-thumbs-down">-->
-                    <!--Unlike-->
-                <!--</span>-->
-                        <!--</a>-->
-                    <!--</div>-->
-                    <!--<div class="container" ng-if="currentUser && !model.liked">-->
-                        <!--<a ng-click="model.toggleLike()">-->
-            <!--<span class="glyphicon glyphicon-thumbs-up">-->
-                <!--Like-->
-            <!--</span>-->
-                        <!--</a>-->
-                    <!--</div>-->
-                <!--</div>-->
-
+            </div>
         </div>
-
-
-
     </div>
-
-        <hr class="colorgraph">
+    <hr class="colorgraph">
 
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <div class="container">
