@@ -27,6 +27,12 @@
                 controllerAs: "model"
             })
             .when("/login", {
+                templateUrl: "views/user/profile/profile.view.client.html",
+                controller: "ProfileController",
+                controllerAs: "model",
+                resolve: {validateLogin: validateLogin}
+            })
+            .when("/login", {
                 templateUrl: "views/user/login/login.view.client.html",
                 controller: "LoginController",
                 controllerAs: "model"

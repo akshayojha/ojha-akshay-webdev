@@ -22,13 +22,12 @@
                     .then(function(response) {
                         var user = response.data;
                         $rootScope.currentUser = user;
-                        console.log(user);
                         $location.url("/search");
                     }, function (error) {
-                        console.log("Unable to login");
+                        vm.alert = "Invalid credentials";
                     });
             } else {
-                console.log("Error Invalid input");
+                vm.alert = "Invalid Input";
             }
         };
     }

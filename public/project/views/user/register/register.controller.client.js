@@ -21,13 +21,14 @@
                         console.log(user);
                         $location.url("/user");
                     }, function (error) {
-                        alert("Username already exists!");
+
+                        vm.alert="Username already exists!";
                     });
             } else {
-                alert("Please verify the password!");
+                vm.alert="Please verify the password!";
             }
         } else {
-            alert("Error invalid input given!");
+            vm.alert ="Error invalid input given!";
         }
     }
 
@@ -42,13 +43,14 @@
                             console.log(user);
                             $location.url("/user");
                         }, function (error) {
-                            alert("Username already exists!");
+
+                            vm.alert="Username already exists!";
                         });
                 } else {
-                    alert("Please verify the password!");
+                    vm.alert="Please verify the password!";
                 }
             } else {
-                alert("Error invalid input given!");
+                vm.alert ="Error invalid input given!";
             }
         }
     function cancel() {
