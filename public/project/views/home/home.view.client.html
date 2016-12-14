@@ -3,11 +3,15 @@
     <h1>
         <img src="img/popcorn.jpg" align="middle" alt="Popcorn Time" height="300px">
     </h1>
-    <div class="input-group">
-        <input ng-model="model.title" type="text" class="form-control" placeholder="Search for..." value="{{model.title}}">
-        <span class="input-group-btn">
-                <button ng-click="model.searchMovieByTitle(model.title)" class="btn btn-default" type="button">Go!</button>
-            </span>
+    <div id="custom-search-input">
+        <div  class="input-group col-md-12">
+            <input  ng-model="model.title" value="{{model.title}}" type="text" class="form-control input-lg" placeholder="Search Movies, TV Shows" />
+            <span class="input-group-btn">
+                        <button ng-click="model.searchMovieByTitle(model.title)"  class="btn btn-info btn-lg" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+        </div>
     </div>
     <!--<div ng-hide="model.movies.length > 0 ">-->
         <!--<h2>Search for a movie by title</h2>-->
