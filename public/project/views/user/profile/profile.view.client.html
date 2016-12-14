@@ -23,14 +23,12 @@
         </form>
     <a class="btn btn-primary btn-block"
        ng-click="model.updateUser(model.user)">Update</a>
-        <a class="btn btn-danger  btn-block"
+    <a class="btn btn-danger  btn-block"
            ng-click="model.logout()">Logout</a>
-        <a class="btn btn-primary btn-block"
-           href="#/user/{{model.user._id}}/followers/">Followers</a>
-    <a class="btn btn-primary btn-block"
+    <a ng-hide="currentUser.role === 'general'" class="btn btn-primary btn-block"
+       href="#/user/{{model.user._id}}/followers/">Followers</a>
+    <a ng-hide="currentUser.role === 'critic'" class="btn btn-primary btn-block"
        href="#/user/{{model.user._id}}/following/">Following</a>
-    <a class="btn btn-primary btn-block"
-       href="#/user/{{model.user._id}}/favorites/">Favorites</a>
-        <a ng-if="currentUser.role === 'critic'" class="btn btn-primary btn-block"
-           href="#/user/{{model.user._id}}/reviews/">Reviews</a>
+    <a ng-if="currentUser.role === 'critic'" class="btn btn-primary btn-block"
+       href="#/user/{{model.user._id}}/reviews/">Reviews</a>
 </div>

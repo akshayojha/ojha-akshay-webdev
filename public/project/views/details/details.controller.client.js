@@ -119,6 +119,7 @@
         }
 
         function updateReview(review) {
+            console.log(review);
             ReviewService
                 .updateReview(review._id, review)
                 .then(function (response) {

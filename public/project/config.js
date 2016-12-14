@@ -82,7 +82,7 @@
                 controllerAs: "model"
             })
             .otherwise({
-                redirectTo: "/login"
+                redirectTo: "/search"
             });
 
         function validateLogin(UserService, $q, $location, $rootScope) {

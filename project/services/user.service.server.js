@@ -104,7 +104,6 @@ module.exports = function(app, model) {
         done(null, user);
     }
     function loggedIn(req, res) {
-        console.log("thihs is causing problems");
         res.send(req.isAuthenticated() ? req.user : null);
     }
     function deserializeUser(user, done) {
@@ -352,6 +351,8 @@ module.exports = function(app, model) {
     function unfollowUser(req, res) {
         var userId = req.params['uid'];
         var unfollowId = req.params['followingId'];
+        console.log(userId);
+        console.log(unfollowId);
         userModel
             .unfollowUser(userId, unfollowId)
             .then(function (stats) {

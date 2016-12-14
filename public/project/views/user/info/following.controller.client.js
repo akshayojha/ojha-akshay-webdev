@@ -9,7 +9,7 @@
 
       function FollowingController($routeParams, UserService) {
         var vm = this;
-        vm.navUserId = $routeParams.userId;
+        vm.navUserId = $routeParams.uid;
 
         vm.follow = follow;
         vm.unfollow = unfollow;

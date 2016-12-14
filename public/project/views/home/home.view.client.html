@@ -7,7 +7,9 @@
                 <button ng-click="model.searchMovieByTitle(model.title)" class="btn btn-default" type="button">Go!</button>
             </span>
     </div>
-
+    <!--<div ng-hide="model.movies.length > 0 ">-->
+        <!--<h2>Search for a movie by title</h2>-->
+    <!--</div>-->
         <article class="search-result row" ng-repeat="movie in model.movies">
             <hr class="colorgraph">
 
@@ -19,7 +21,7 @@
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-3">
-                <a href="#/details/{{movie.imdbID}}/{{model.title}}" title="{{movie.Title}}" class="thumbnail"><img ng-src={{movie.Poster}} alt="No Poster available" /></a>
+                <a href="#/details/{{movie.imdbID}}/{{model.title}}" title="{{movie.Title}}" class="thumbnail"><img src={{movie.Poster}} alt="Sorry no poster available" /></a>
             </div>
             <span class="clearfix borda"></span>
         </article>

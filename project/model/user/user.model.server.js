@@ -40,11 +40,11 @@ module.exports = function() {
         return UserModel.update({_id:userId}, {$addToSet:{favoriteMovies:mid}});
     }
 
-    function followUser(userId, followingUserId) {
+    function unfollowUser(userId, followingUserId) {
         return UserModel.update({_id:userId}, {$pullAll:{following:followingUserId}});
     }
 
-    function unfollowUser(userId, followingUserId) {
+    function followUser(userId, followingUserId) {
         return UserModel.update({_id:userId}, {$addToSet:{following:followingUserId}});
     }
 

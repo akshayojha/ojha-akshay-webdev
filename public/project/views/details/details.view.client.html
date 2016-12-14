@@ -9,62 +9,70 @@
     <hr class="colorgraph">
 
     <div class="row">
-        <div class="col-xs-6">
-            <div>
-                Directed By: {{model.movie.Director}}
-            </div>
+            <div class="lib-panel">
+                <div class="row box-shadow">
+                    <div class="col-md-6">
+                        <img src="{{model.movie.Poster}}" onerror="this.src='http://shop55.org/wp-content/uploads/2014/02/no-image.jpeg'" height="300px">
+                    </div>
+                    <div class="col-md-6">
+                            <div>
+                                <h3>Directed By: {{model.movie.Director}}
+                                </h3></div>
 
-            <div>
-                Rated: {{model.movie.Rated}}
-            </div>
+                            <div>
+                                <h3>Ratings: {{model.movie.imdbRating}}</h3>
+                            </div>
 
-            <div>
-                Released: {{model.movie.Released}}
-            </div>
-            <div>
-                Plot: {{model.movie.Plot}}
-            </div>
-            <div>
-                Actors:
-                <ul>
-                    <li ng-repeat="actor in model.Actors">
-                        {{actor}}
-                    </li>
-                </ul>
-            </div>
+                            <div>
+                                <h3>Released: {{model.movie.Released}}</h3>
+                            </div>
+                            <div>
+                                <h3>Plot:</h3> <h4>{{model.movie.Plot}}</h4>
+                            </div>
+                            <div>
+                                <h3>Actors:</h3>
+                                <ul>
+                                    <li ng-repeat="actor in model.Actors">
+                                        <h4>{{actor}}</h4>
+                                    </li>
+                                </ul>
+                            </div>
+                    </div>
+                    <!--<div class="container" ng-if="!currentUser">-->
+                        <!--<a href="#/login">-->
+                <!--<span class="glyphicon glyphicon-thumbs-up">-->
+                <!--Please login to like the movie-->
+            <!--</span>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                    <!--<div class="container" ng-if="currentUser && model.liked">-->
+                        <!--<a ng-click="model.toggleLike()">-->
+            <!--<span style="background-color: #2b542c" class="glyphicon glyphicon-thumbs-down">-->
+                    <!--Unlike-->
+                <!--</span>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                    <!--<div class="container" ng-if="currentUser && !model.liked">-->
+                        <!--<a ng-click="model.toggleLike()">-->
+            <!--<span class="glyphicon glyphicon-thumbs-up">-->
+                <!--Like-->
+            <!--</span>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                <!--</div>-->
 
         </div>
-        <div class="col-xs-6">
-            <img ng-src="{{model.movie.Poster}}" height="300px"/>
-        </div>
-            <div class="container" ng-if="!currentUser">
-                <a href="#/login">
-                <span class="glyphicon glyphicon-thumbs-up">
-                Please login to like the movie
-            </span>
-                </a>
-            </div>
-        <div class="container" ng-if="currentUser && model.liked">
-            <a ng-click="model.toggleLike()">
-            <span style="background-color: #2b542c" class="glyphicon glyphicon-thumbs-down">
-                    Unlike
-                </span>
-            </a>
-        </div>
-        <div class="container" ng-if="currentUser && !model.liked">
-            <a ng-click="model.toggleLike()">
-            <span class="glyphicon glyphicon-thumbs-up">
-                Like
-            </span>
-            </a>
-        </div>
+
+
 
     </div>
 
+        <hr class="colorgraph">
 
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <div class="container">
         <div class="row">
+            <h3>Write a review</h3>
             <div ng-if="currentUser.role === 'critic'">
             <label for="name">Title</label>
             <input type="text"
@@ -82,17 +90,45 @@
                    ng-model="model.review.description"/>
             <button ng-click="model.addReview(model.review)" type="submit" name="say" value="" class="btn btn-primary"><i class="fa fa-reply"></i> Submit</button>
         </div>
+            <div ng-hide="currentUser">
+                <p class="text-danger">You need to login as a critic to post reviews</p>
+            </div>
             <h3>Past Reviews </h3>
+
+
+            <div ng-hide="model.reviews.length > 0 ">
+                <p class="text-danger">Nothing here</p>
+            </div>
+
             <h3 ng-repeat="review in model.reviews">
                 <i class="fa fa-comment">
+                    <a href="#/user/{{review._user}}/reviews/">
                     {{review.username}} said on {{review.timestamp | date:"MM/dd/yyyy 'at' h:mma"}}:
+                    </a>
                 </i>
                 <small>{{review.title}}</small>
                 <p>{{review.description}}</p>
                 <div ng-if="currentUser._id === review._user">
+
+                    <label for="name">Title</label>
+                    <input type="text"
+                           id="name"
+                           class="form-control"
+                           placeholder="Enter review title"
+                           ng-model="review.title"
+                           value=""/>
+                    <label for="description">Description</label>
+                    <input type="text"
+                           id="description"
+                           class="form-control"
+                           placeholder="Enter review description"
+                           value=""
+                           ng-model="review.description"/>
                     <button ng-click="model.deleteReview($index)" type="delete" name="say" value="" class="btn btn-danger"><i class="fa"></i> Delete Post</button>
-                    <button ng-click="model.updateReview($index)" type="update" name="say" value="" class="btn btn-default"><i class="fa"></i> Update Post</button>
+                    <button ng-click="model.updateReview(review)" type="update" name="say" value="" class="btn btn-default"><i class="fa"></i> Update Post</button>
+
                 </div>
+
             </h3>
         </div>
     </div>
