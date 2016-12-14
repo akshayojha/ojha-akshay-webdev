@@ -55,7 +55,7 @@ module.exports = function(app, model) {
             .findUserById(userId)
             .then(function (user) {
                 return userModel
-                    .findFollowing(user.following);
+                    .findAllFollowingUsers(user.following);
             }, function (err) {
                 res.status(400).send(err);
             })
@@ -72,7 +72,7 @@ module.exports = function(app, model) {
             .findUserById(userId)
             .then(function (user) {
                 return userModel
-                    .findFollowers(user.followers);
+                    .findAllFollowers(user.followers);
             }, function (err) {
                 res.status(400).send(err);
             })

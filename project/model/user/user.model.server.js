@@ -20,6 +20,8 @@ module.exports = function() {
         unfollowUser: unfollowUser,
         removeFollowingUser: removeFollowingUser,
         addFollowingUser: addFollowingUser,
+        findAllFollowingUsers: findAllFollowingUsers,
+        findAllFollowers: findAllFollowers,
         findUserByEmail: findUserByEmail,
         setModel: setModel
     };
@@ -72,6 +74,13 @@ module.exports = function() {
             .find();
     }
 
+    function findAllFollowingUsers(userIds) {
+        return UserModel.find({_id: {$in: userIds}});
+    }
+
+    function findAllFollowers(userIds) {
+        return UserModel.find({_id: {$in: userIds}});
+    }
     function findUserById(userId) {
         return UserModel.findById(userId);
     }

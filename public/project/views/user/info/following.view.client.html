@@ -8,30 +8,14 @@
             </b>
     </div>
 </div>
+<hr class="colorgraph">
 
 <div ng-repeat="user in model.users">
     <div class="media">
-        <div class="media-body">
-            <h3 class="media-heading">
-                <a ui-sref="profile.reviews({userId: user._id})">
+        <a href="#/user/{{user._id}}/reviews/">
                     {{user.firstName + " " + user.lastName}}
                 </a>
             </h3>
-            <div ng-hide="user.itsMe">
-                <a href=""
-                   ng-click="model.follow($index)"
-                   ng-hide="user.alreadyFollowing"
-                   class="btn-sm btn-success">Follow
-                </a>
-            </div>
-            <div ng-hide="user.itsMe">
-                <a href=""
-                   ng-click="model.unfollow($index)"
-                   ng-show="user.alreadyFollowing"
-                   class="btn-sm btn-danger">Unfollow
-                </a>
-            </div>
-        </div>
     </div>
 
     <hr>
