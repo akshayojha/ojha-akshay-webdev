@@ -64,12 +64,14 @@
             .when("/user/:uid/followers", {
                 templateUrl: "views/user/info/followers.view.client.html",
                 controller: "FollowersController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {validateLogin: validateLogin}
             })
             .when("/user/:uid/following", {
             templateUrl: "views/user/info/following.view.client.html",
             controller: "FollowingController",
-            controllerAs: "model"
+            controllerAs: "model",
+                resolve: {validateLogin: validateLogin}
             })
             .when("/user/:uid/favorites", {
                 templateUrl: "views/user/info/favorites.view.client.html",
