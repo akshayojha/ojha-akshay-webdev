@@ -28,7 +28,7 @@
         init();
         function updateUser(user) {
             if (user) {
-                UserService.updateUser(vm.userId, user)
+                UserService.updateUser(user._id, user)
                     .then(function (response) {
                         vm.alert ="Updated information successfully";
                     }, function (error) {

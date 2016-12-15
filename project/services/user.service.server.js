@@ -223,7 +223,7 @@ module.exports = function(app, model) {
     }
 
     function updateUser(req, res) {
-        var userID = req.params.uid;
+        var userID = req.params.userID;
         var user = req.body;
         model
             .userModel
@@ -232,7 +232,8 @@ module.exports = function(app, model) {
                 function (resp) {
                     console.log("Rer");
                     console.log(user);
-                    res.send(user).sendStatus(200);
+                    console.log(resp);
+                    res.sendStatus(200);
                 }, function (error) {
                     res.sendStatus(400);
                 }

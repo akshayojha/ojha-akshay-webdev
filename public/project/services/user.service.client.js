@@ -94,7 +94,6 @@
         }
         
         function register(user) {
-            console.log(user);
             var url = "/ppt/register";
             return $http.post(url, user);
         }
