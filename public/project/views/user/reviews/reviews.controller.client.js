@@ -14,6 +14,7 @@
         vm.followUser = followUser;
         vm.unfollowUser = unfollowUser;
         vm.following = false;
+        vm.isNotCritic = false;
         function init() {
             UserService
                 .getCurrentUser()
@@ -35,6 +36,8 @@
                                 var user = response.data;
                                 if (user) {
                                     vm.navUser = user;
+                                    if (vm.user.role != 'critic')
+                                        vm.isNotCritic = true;
                                     for(var i = 0; vm.user && i<vm.user.following.length; ++i) {
                                         if(vm.user.following[i] === vm.navUserId) {
                                             vm.following = true;

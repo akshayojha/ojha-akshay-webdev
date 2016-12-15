@@ -7,7 +7,7 @@
 <hr class="colorgraph">
 <div class="row" ng-hide="model.reviews.length > 0">
     <div class="alert alert-info alert-box" role="alert">
-            <b>No reviews have been not posted yet</b>
+            <b>No reviews have been posted yet</b>
     </div>
 </div>
 
@@ -25,9 +25,9 @@
         </h3>
     </div>
 </div>
-<div class="container">
-    <a ng-if="currentUser.role!='critic' && !model.following" class="btn btn-primary btn-block"
+<div class="container" ng-if="model.isNotCritic">
+    <a ng-if="!model.following" class="btn btn-primary btn-block"
        ng-click="model.followUser()">Follow</a>
-    <a ng-if="currentUser.role!='critic' && model.following" class="btn btn-primary btn-block"
+    <a ng-if="model.following" class="btn btn-primary btn-block"
        ng-click="model.unfollowUser()">Unfollow</a>
 </div>

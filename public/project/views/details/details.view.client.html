@@ -53,7 +53,7 @@
         <div class="row">
             <h3>Write a review</h3>
             <div class="row">
-            <div class="col-lg-4" ng-if="currentUser.role === 'critic'">
+            <div class="col-lg-4" ng-if="model.isCritic">
             <label for="name">Title</label>
             <input type="text"
                    id="name"
@@ -90,7 +90,7 @@
                 <small>{{review.title}}</small>
                 <p>{{review.description}}</p>
                 <div class="row">
-                <div  class="col-lg-4" ng-if="currentUser._id === review._user">
+                <div  class="col-lg-4" ng-if="review.isEditable">
                     <label for="name">Title</label>
                     <input type="text"
                            id="name"

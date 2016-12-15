@@ -8,7 +8,7 @@
         var vm = this;
         vm.movieId = $routeParams.movieId;
         vm.title = $routeParams.title;
-
+vm.isEditable =false;
         vm.addReview = addReview;
         vm.selectReview = selectReview;
         vm.updateReview = updateReview;
@@ -16,6 +16,7 @@
         vm.cancelReview = cancelReview;
         vm.toggleLike = toggleLike;
         vm.liked = false;
+        vm.isCritic = false;
 
         function init() {
 
@@ -31,13 +32,15 @@
                     var user = response.data;
                     if (user) {
                         vm.user = user;
+
                         UserService
                             .findUserById(vm.user._id)
                             .then(function (response) {
                             if (response.data) {
                                 vm.user = response.data;
+                                if(vm.user.role == 'critic')
+                                    vm.isCritic = true;
                             }
-                                console.log("asdasd");
 
                             }, function (err) {
                                 console.log(err);
@@ -194,6 +197,10 @@
                         if (response.data) {
                              console.log(response.data.username);
                             vm.reviews[index].username = response.data.username;
+                            if (vm.reviews[index]._user === vm.user._id)
+                                vm.reviews[index].isEditable = true;
+                            else
+                                vm.reviews[index].isEditable = false;
                         }
                     });
             });
